@@ -1,0 +1,46 @@
+{
+  "summary_value_mismatches": [],
+  "log_and_configuration_checks": {
+    "tune_no_reg": {
+      "log_history_mismatches": [],
+      "architecture_matches_current_experiment": true
+    },
+    "tune_no_aug": {
+      "log_history_mismatches": [],
+      "architecture_matches_current_experiment": true
+    },
+    "tune_dropout03": {
+      "log_history_mismatches": [],
+      "architecture_matches_current_experiment": true
+    },
+    "tune_hidden256": {
+      "log_history_mismatches": [],
+      "architecture_matches_current_experiment": true
+    },
+    "tune_layers2": {
+      "log_history_mismatches": [],
+      "architecture_matches_current_experiment": true
+    },
+    "cnn_bilstm": {
+      "log_history_mismatches": [],
+      "architecture_matches_current_experiment": true
+    },
+    "cnn_lstm": {
+      "log_history_mismatches": [],
+      "architecture_matches_current_experiment": true
+    },
+    "tune_lr3e4": {
+      "log_history_mismatches": [],
+      "architecture_matches_current_experiment": true
+    },
+    "cnn_only": {
+      "log_history_mismatches": [],
+      "architecture_matches_current_experiment": true
+    },
+    "pixel_lstm": {
+      "log_history_mismatches": [],
+      "architecture_matches_current_experiment": true
+    }
+  },
+  "all_class_counts_match": true
+}

@@ -1,0 +1,16 @@
+# Environment checked during the review (Python 3.11, CPU only).
+# Historical runs did not record a complete package inventory.
+torch==2.14.0
+numpy==2.3.2
+scikit-learn==1.7.2
+pillow==12.0.0
+matplotlib==3.9.2
+pandas==2.3.2
+kagglehub==1.0.3
+nbformat
+nbclient
+nbconvert
+ipykernel
+python-docx>=1.2
+jupyter
+pytest

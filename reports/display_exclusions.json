@@ -1,0 +1,10 @@
+{
+  "scope": "Illustration selection only. All source images and all experiment/test metrics are retained unchanged.",
+  "excluded_paths": {
+    "cat/cat_0757.jpg": "Visible source text overlay in the original example photograph.",
+    "flower/flower_0575.jpg": "Visible photographer/source mark in the original error example."
+  },
+  "example_replacements": {
+    "cat/cat_0757.jpg": "cat/cat_0000.jpg"
+  }
+}

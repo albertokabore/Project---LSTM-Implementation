@@ -218,3 +218,9 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Raw datasets (downloaded from Kaggle; never modified or committed)
+data/
+
+# Generated caches and model checkpoints
+artifacts/

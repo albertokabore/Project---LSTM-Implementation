@@ -1,0 +1,1237 @@
+{
+  "audit_timestamp_utc": "2026-11-11T19:54:08.768608+00:00",
+  "python": "3.11.0",
+  "packages": {
+    "torch": "2.14.0+cpu",
+    "numpy": "2.3.2",
+    "scikit-learn": "1.7.2",
+    "pillow": "12.0.0",
+    "matplotlib": "3.9.2",
+    "pandas": "2.3.2",
+    "kagglehub": "1.0.3",
+    "pytest": "9.1.1",
+    "python-docx": "1.2.0"
+  },
+  "raw": {
+    "all_files": 13798,
+    "total_bytes": 359403192,
+    "images_in_primary_copy": 6899,
+    "class_counts": {
+      "airplane": 727,
+      "car": 968,
+      "cat": 885,
+      "dog": 702,
+      "flower": 843,
+      "fruit": 1000,
+      "motorbike": 788,
+      "person": 986
+    },
+    "decode_errors": [],
+    "formats": {
+      "JPEG": 6898,
+      "PNG": 1
+    },
+    "modes": {
+      "RGB": 6899
+    },
+    "smaller_than_64": 38,
+    "extreme_aspect_ratios": 920,
+    "duplicate_copy_mismatches": [],
+    "byte_duplicate_groups": [
+      [
+        "car/car_0236.jpg",
+        "car/car_0675.jpg"
+      ],
+      [
+        "flower/flower_0400.jpg",
+        "flower/flower_0772.jpg"
+      ]
+    ],
+    "decoded_rgb_duplicate_groups": [
+      [
+        "car/car_0236.jpg",
+        "car/car_0675.jpg"
+      ],
+      [
+        "flower/flower_0400.jpg",
+        "flower/flower_0772.jpg"
+      ]
+    ]
+  },
+  "preprocessing": {
+    "indexed_images": 6897,
+    "exact_duplicates_removed": 2,
+    "cache_mismatches_against_fresh_images": [],
+    "split_sizes": {
+      "train": 4827,
+      "val": 1035,
+      "test": 1035
+    },
+    "test_paths_match_saved_order": true,
+    "channel_mean": [
+      0.5099151730537415,
+      0.4639148414134979,
+      0.4193847179412842
+    ],
+    "channel_std": [
+      0.28711700439453125,
+      0.2786951959133148,
+      0.2922475337982178
+    ],
+    "normalization_matches_saved": true
+  },
+  "cross_split_duplicate_candidates": {
+    "byte_sha256": {
+      "train_vs_val": [],
+      "train_vs_test": [],
+      "val_vs_test": []
+    },
+    "decoded_rgb_sha256": {
+      "train_vs_val": [],
+      "train_vs_test": [],
+      "val_vs_test": []
+    },
+    "average_hash_8x8": {
+      "train_vs_val": [
+        {
+          "train": [
+            "fruit/fruit_0970.jpg"
+          ],
+          "val": [
+            "fruit/fruit_0022.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0024.jpg"
+          ],
+          "val": [
+            "fruit/fruit_0670.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0039.jpg",
+            "fruit/fruit_0401.jpg",
+            "fruit/fruit_0645.jpg"
+          ],
+          "val": [
+            "fruit/fruit_0444.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0414.jpg",
+            "fruit/fruit_0698.jpg"
+          ],
+          "val": [
+            "fruit/fruit_0050.jpg",
+            "fruit/fruit_0212.jpg",
+            "fruit/fruit_0891.jpg",
+            "fruit/fruit_0945.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0057.jpg"
+          ],
+          "val": [
+            "fruit/fruit_0271.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0323.jpg"
+          ],
+          "val": [
+            "fruit/fruit_0065.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0085.jpg"
+          ],
+          "val": [
+            "fruit/fruit_0315.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0089.jpg"
+          ],
+          "val": [
+            "fruit/fruit_0231.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0356.jpg"
+          ],
+          "val": [
+            "fruit/fruit_0660.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0107.jpg"
+          ],
+          "val": [
+            "fruit/fruit_0368.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0614.jpg",
+            "fruit/fruit_0732.jpg"
+          ],
+          "val": [
+            "fruit/fruit_0130.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0141.jpg",
+            "fruit/fruit_0431.jpg",
+            "fruit/fruit_0866.jpg"
+          ],
+          "val": [
+            "fruit/fruit_0281.jpg",
+            "fruit/fruit_0388.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0154.jpg"
+          ],
+          "val": [
+            "fruit/fruit_0609.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0171.jpg"
+          ],
+          "val": [
+            "fruit/fruit_0399.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0193.jpg"
+          ],
+          "val": [
+            "fruit/fruit_0875.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0256.jpg",
+            "fruit/fruit_0495.jpg"
+          ],
+          "val": [
+            "fruit/fruit_0973.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0257.jpg"
+          ],
+          "val": [
+            "fruit/fruit_0938.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0266.jpg"
+          ],
+          "val": [
+            "fruit/fruit_0782.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0498.jpg"
+          ],
+          "val": [
+            "fruit/fruit_0921.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0398.jpg"
+          ],
+          "val": [
+            "fruit/fruit_0306.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0534.jpg",
+            "fruit/fruit_0751.jpg"
+          ],
+          "val": [
+            "fruit/fruit_0319.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0987.jpg"
+          ],
+          "val": [
+            "fruit/fruit_0331.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0343.jpg"
+          ],
+          "val": [
+            "fruit/fruit_0903.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0631.jpg",
+            "fruit/fruit_0865.jpg"
+          ],
+          "val": [
+            "fruit/fruit_0371.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0605.jpg"
+          ],
+          "val": [
+            "fruit/fruit_0404.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0876.jpg"
+          ],
+          "val": [
+            "fruit/fruit_0420.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0454.jpg"
+          ],
+          "val": [
+            "fruit/fruit_0497.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0535.jpg"
+          ],
+          "val": [
+            "fruit/fruit_0530.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0674.jpg"
+          ],
+          "val": [
+            "fruit/fruit_0603.jpg",
+            "fruit/fruit_0874.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0728.jpg"
+          ],
+          "val": [
+            "fruit/fruit_0832.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0858.jpg"
+          ],
+          "val": [
+            "fruit/fruit_0840.jpg"
+          ]
+        },
+        {
+          "train": [
+            "motorbike/motorbike_0624.jpg"
+          ],
+          "val": [
+            "motorbike/motorbike_0556.jpg"
+          ]
+        }
+      ],
+      "train_vs_test": [
+        {
+          "train": [
+            "fruit/fruit_0972.jpg"
+          ],
+          "test": [
+            "fruit/fruit_0021.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0027.jpg",
+            "fruit/fruit_0716.jpg",
+            "fruit/fruit_0757.jpg"
+          ],
+          "test": [
+            "fruit/fruit_0457.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0035.jpg"
+          ],
+          "test": [
+            "fruit/fruit_0450.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0741.jpg"
+          ],
+          "test": [
+            "fruit/fruit_0049.jpg",
+            "fruit/fruit_0178.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0131.jpg",
+            "fruit/fruit_0329.jpg"
+          ],
+          "test": [
+            "fruit/fruit_0058.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0070.jpg",
+            "fruit/fruit_0630.jpg"
+          ],
+          "test": [
+            "fruit/fruit_0217.jpg",
+            "fruit/fruit_0573.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0075.jpg",
+            "fruit/fruit_0926.jpg"
+          ],
+          "test": [
+            "fruit/fruit_0518.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0975.jpg"
+          ],
+          "test": [
+            "fruit/fruit_0088.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0799.jpg"
+          ],
+          "test": [
+            "fruit/fruit_0094.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0356.jpg"
+          ],
+          "test": [
+            "fruit/fruit_0097.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0104.jpg"
+          ],
+          "test": [
+            "fruit/fruit_0192.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0106.jpg",
+            "fruit/fruit_0646.jpg"
+          ],
+          "test": [
+            "fruit/fruit_0389.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0175.jpg",
+            "fruit/fruit_0267.jpg",
+            "fruit/fruit_0661.jpg"
+          ],
+          "test": [
+            "fruit/fruit_0879.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0189.jpg",
+            "fruit/fruit_0515.jpg"
+          ],
+          "test": [
+            "fruit/fruit_0564.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0194.jpg"
+          ],
+          "test": [
+            "fruit/fruit_0524.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0202.jpg",
+            "fruit/fruit_0588.jpg"
+          ],
+          "test": [
+            "fruit/fruit_0239.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0566.jpg"
+          ],
+          "test": [
+            "fruit/fruit_0214.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0498.jpg"
+          ],
+          "test": [
+            "fruit/fruit_0282.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0307.jpg",
+            "fruit/fruit_0385.jpg"
+          ],
+          "test": [
+            "fruit/fruit_0700.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0571.jpg"
+          ],
+          "test": [
+            "fruit/fruit_0324.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0960.jpg"
+          ],
+          "test": [
+            "fruit/fruit_0330.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0355.jpg"
+          ],
+          "test": [
+            "fruit/fruit_0424.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0596.jpg"
+          ],
+          "test": [
+            "fruit/fruit_0400.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0453.jpg"
+          ],
+          "test": [
+            "fruit/fruit_0759.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0471.jpg"
+          ],
+          "test": [
+            "fruit/fruit_0517.jpg",
+            "fruit/fruit_0988.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0537.jpg"
+          ],
+          "test": [
+            "fruit/fruit_0568.jpg",
+            "fruit/fruit_0658.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0563.jpg"
+          ],
+          "test": [
+            "fruit/fruit_0839.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0859.jpg"
+          ],
+          "test": [
+            "fruit/fruit_0680.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0681.jpg"
+          ],
+          "test": [
+            "fruit/fruit_0800.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0872.jpg"
+          ],
+          "test": [
+            "fruit/fruit_0688.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0753.jpg"
+          ],
+          "test": [
+            "fruit/fruit_0831.jpg"
+          ]
+        },
+        {
+          "train": [
+            "fruit/fruit_0964.jpg"
+          ],
+          "test": [
+            "fruit/fruit_0802.jpg"
+          ]
+        },
+        {
+          "train": [
+            "motorbike/motorbike_0006.jpg"
+          ],
+          "test": [
+            "motorbike/motorbike_0784.jpg"
+          ]
+        },
+        {
+          "train": [
+            "motorbike/motorbike_0273.jpg"
+          ],
+          "test": [
+            "motorbike/motorbike_0272.jpg"
+          ]
+        },
+        {
+          "train": [
+            "motorbike/motorbike_0484.jpg"
+          ],
+          "test": [
+            "motorbike/motorbike_0463.jpg"
+          ]
+        }
+      ],
+      "val_vs_test": [
+        {
+          "val": [
+            "fruit/fruit_0660.jpg"
+          ],
+          "test": [
+            "fruit/fruit_0097.jpg"
+          ]
+        },
+        {
+          "val": [
+            "fruit/fruit_0921.jpg"
+          ],
+          "test": [
+            "fruit/fruit_0282.jpg"
+          ]
+        },
+        {
+          "val": [
+            "fruit/fruit_0336.jpg"
+          ],
+          "test": [
+            "fruit/fruit_0335.jpg"
+          ]
+        },
+        {
+          "val": [
+            "fruit/fruit_0877.jpg"
+          ],
+          "test": [
+            "fruit/fruit_0783.jpg"
+          ]
+        }
+      ]
+    }
+  },
+  "experiments": [
+    {
+      "name": "cnn_bilstm",
+      "test_metric_mismatches": [],
+      "test_probabilities_finite": true,
+      "test_probabilities_in_range": true,
+      "max_probability_sum_error": 2.980232238769531e-07,
+      "validation_confusion_metric_mismatches": [],
+      "validation_support_matches_split": true,
+      "params": 1503208,
+      "saved_params_match": true,
+      "history_lengths_match": true,
+      "best_epoch_matches_loss_rule": true,
+      "val_accuracy_matches_best_epoch": true,
+      "test_accuracy": 0.9217391304347826,
+      "test_correct": 954,
+      "test_macro_f1": 0.9126269884791032,
+      "train_seconds": 1515.7628387000004,
+      "summed_epoch_seconds": 1515.553777400055,
+      "median_epoch_seconds": 68.74831549999362
+    },
+    {
+      "name": "cnn_lstm",
+      "test_metric_mismatches": [],
+      "test_probabilities_finite": true,
+      "test_probabilities_in_range": true,
+      "max_probability_sum_error": 3.5762786865234375e-07,
+      "validation_confusion_metric_mismatches": [],
+      "validation_support_matches_split": true,
+      "params": 895976,
+      "saved_params_match": true,
+      "history_lengths_match": true,
+      "best_epoch_matches_loss_rule": true,
+      "val_accuracy_matches_best_epoch": true,
+      "test_accuracy": 0.8985507246376812,
+      "test_correct": 930,
+      "test_macro_f1": 0.8755478939684179,
+      "train_seconds": 1347.2265335999837,
+      "summed_epoch_seconds": 1347.0031601999654,
+      "median_epoch_seconds": 65.17953804999706
+    },
+    {
+      "name": "cnn_only",
+      "test_metric_mismatches": [],
+      "test_probabilities_finite": true,
+      "test_probabilities_in_range": true,
+      "max_probability_sum_error": 2.384185791015625e-07,
+      "validation_confusion_metric_mismatches": [],
+      "validation_support_matches_split": true,
+      "params": 305128,
+      "saved_params_match": true,
+      "history_lengths_match": true,
+      "best_epoch_matches_loss_rule": true,
+      "val_accuracy_matches_best_epoch": true,
+      "test_accuracy": 0.8763285024154589,
+      "test_correct": 907,
+      "test_macro_f1": 0.8448210178709019,
+      "train_seconds": 1331.876929799997,
+      "summed_epoch_seconds": 1328.7456620999728,
+      "median_epoch_seconds": 61.13235215000168
+    },
+    {
+      "name": "pixel_lstm",
+      "test_metric_mismatches": [],
+      "test_probabilities_finite": true,
+      "test_probabilities_in_range": true,
+      "max_probability_sum_error": 3.5762786865234375e-07,
+      "validation_confusion_metric_mismatches": [],
+      "validation_support_matches_split": true,
+      "params": 315016,
+      "saved_params_match": true,
+      "history_lengths_match": true,
+      "best_epoch_matches_loss_rule": true,
+      "val_accuracy_matches_best_epoch": true,
+      "test_accuracy": 0.8260869565217391,
+      "test_correct": 855,
+      "test_macro_f1": 0.8101495216163973,
+      "train_seconds": 241.7208868000016,
+      "summed_epoch_seconds": 237.9742702000658,
+      "median_epoch_seconds": 11.121731000006548
+    },
+    {
+      "name": "tune_dropout03",
+      "test_metric_mismatches": [],
+      "test_probabilities_finite": true,
+      "test_probabilities_in_range": true,
+      "max_probability_sum_error": 2.384185791015625e-07,
+      "validation_confusion_metric_mismatches": [],
+      "validation_support_matches_split": true,
+      "params": 1503208,
+      "saved_params_match": true,
+      "history_lengths_match": true,
+      "best_epoch_matches_loss_rule": true,
+      "val_accuracy_matches_best_epoch": true,
+      "test_accuracy": 0.9410628019323671,
+      "test_correct": 974,
+      "test_macro_f1": 0.935968447378952,
+      "train_seconds": 5700.741581800015,
+      "summed_epoch_seconds": 5697.674770099984,
+      "median_epoch_seconds": 71.65519954999036
+    },
+    {
+      "name": "tune_hidden256",
+      "test_metric_mismatches": [],
+      "test_probabilities_finite": true,
+      "test_probabilities_in_range": true,
+      "max_probability_sum_error": 2.384185791015625e-07,
+      "validation_confusion_metric_mismatches": [],
+      "validation_support_matches_split": true,
+      "params": 2979816,
+      "saved_params_match": true,
+      "history_lengths_match": true,
+      "best_epoch_matches_loss_rule": true,
+      "val_accuracy_matches_best_epoch": true,
+      "test_accuracy": 0.9381642512077295,
+      "test_correct": 971,
+      "test_macro_f1": 0.9321765066869394,
+      "train_seconds": 1521.2374821999983,
+      "summed_epoch_seconds": 1520.6929983000155,
+      "median_epoch_seconds": 70.9315134500066
+    },
+    {
+      "name": "tune_layers2",
+      "test_metric_mismatches": [],
+      "test_probabilities_finite": true,
+      "test_probabilities_in_range": true,
+      "max_probability_sum_error": 2.384185791015625e-07,
+      "validation_confusion_metric_mismatches": [],
+      "validation_support_matches_split": true,
+      "params": 1898472,
+      "saved_params_match": true,
+      "history_lengths_match": true,
+      "best_epoch_matches_loss_rule": true,
+      "val_accuracy_matches_best_epoch": true,
+      "test_accuracy": 0.9352657004830918,
+      "test_correct": 968,
+      "test_macro_f1": 0.9295791097380137,
+      "train_seconds": 2177.149141300004,
+      "summed_epoch_seconds": 2168.2976072000456,
+      "median_epoch_seconds": 92.81758730002912
+    },
+    {
+      "name": "tune_lr3e4",
+      "test_metric_mismatches": [],
+      "test_probabilities_finite": true,
+      "test_probabilities_in_range": true,
+      "max_probability_sum_error": 2.384185791015625e-07,
+      "validation_confusion_metric_mismatches": [],
+      "validation_support_matches_split": true,
+      "params": 1503208,
+      "saved_params_match": true,
+      "history_lengths_match": true,
+      "best_epoch_matches_loss_rule": true,
+      "val_accuracy_matches_best_epoch": true,
+      "test_accuracy": 0.8888888888888888,
+      "test_correct": 920,
+      "test_macro_f1": 0.8709107104363503,
+      "train_seconds": 21997.3923412,
+      "summed_epoch_seconds": 21996.87170180006,
+      "median_epoch_seconds": 70.38091194999288
+    },
+    {
+      "name": "tune_no_aug",
+      "test_metric_mismatches": [],
+      "test_probabilities_finite": true,
+      "test_probabilities_in_range": true,
+      "max_probability_sum_error": 3.5762786865234375e-07,
+      "validation_confusion_metric_mismatches": [],
+      "validation_support_matches_split": true,
+      "params": 1503208,
+      "saved_params_match": true,
+      "history_lengths_match": true,
+      "best_epoch_matches_loss_rule": true,
+      "val_accuracy_matches_best_epoch": true,
+      "test_accuracy": 0.9439613526570049,
+      "test_correct": 977,
+      "test_macro_f1": 0.9397364282171186,
+      "train_seconds": 56799.21458150001,
+      "summed_epoch_seconds": 56798.76605429998,
+      "median_epoch_seconds": 78.16466394999588
+    },
+    {
+      "name": "tune_no_reg",
+      "test_metric_mismatches": [],
+      "test_probabilities_finite": true,
+      "test_probabilities_in_range": true,
+      "max_probability_sum_error": 2.384185791015625e-07,
+      "validation_confusion_metric_mismatches": [],
+      "validation_support_matches_split": true,
+      "params": 1503208,
+      "saved_params_match": true,
+      "history_lengths_match": true,
+      "best_epoch_matches_loss_rule": true,
+      "val_accuracy_matches_best_epoch": true,
+      "test_accuracy": 0.9632850241545894,
+      "test_correct": 997,
+      "test_macro_f1": 0.9601761633102563,
+      "train_seconds": 1522.007121099974,
+      "summed_epoch_seconds": 1521.5705721999984,
+      "median_epoch_seconds": 71.40924700000323
+    }
+  ],
+  "selected_checkpoint": {
+    "name": "tune_no_reg",
+    "sha256": "f1ff80b305a99cf4b508af62d978d51edacfc99dd41c612aec1613c7404aba13",
+    "val": {
+      "metrics": {
+        "accuracy": 0.9516908212560387,
+        "top2_accuracy": 0.9893719806763285,
+        "macro_precision": 0.9475117809804324,
+        "macro_recall": 0.9470302995397644,
+        "macro_f1": 0.947081485261186,
+        "weighted_precision": 0.9511973505304773,
+        "weighted_recall": 0.9516908212560387,
+        "weighted_f1": 0.9512786414130294,
+        "per_class": {
+          "airplane": {
+            "precision": 0.9819819819819819,
+            "recall": 1.0,
+            "f1": 0.990909090909091,
+            "support": 109
+          },
+          "car": {
+            "precision": 0.9863013698630136,
+            "recall": 0.993103448275862,
+            "f1": 0.9896907216494846,
+            "support": 145
+          },
+          "cat": {
+            "precision": 0.8666666666666667,
+            "recall": 0.8796992481203008,
+            "f1": 0.8731343283582089,
+            "support": 133
+          },
+          "dog": {
+            "precision": 0.8282828282828283,
+            "recall": 0.7735849056603774,
+            "f1": 0.8,
+            "support": 106
+          },
+          "flower": {
+            "precision": 0.9236641221374046,
+            "recall": 0.9603174603174603,
+            "f1": 0.9416342412451362,
+            "support": 126
+          },
+          "fruit": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 150
+          },
+          "motorbike": {
+            "precision": 1.0,
+            "recall": 0.9830508474576272,
+            "f1": 0.9914529914529915,
+            "support": 118
+          },
+          "person": {
+            "precision": 0.9931972789115646,
+            "recall": 0.9864864864864865,
+            "f1": 0.9898305084745763,
+            "support": 148
+          }
+        },
+        "confusion_matrix": [
+          [
+            109,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            144,
+            0,
+            0,
+            1,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            117,
+            13,
+            3,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            2,
+            17,
+            82,
+            4,
+            0,
+            0,
+            1
+          ],
+          [
+            1,
+            0,
+            1,
+            3,
+            121,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            150,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            0,
+            0,
+            1,
+            0,
+            116,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            1,
+            1,
+            0,
+            0,
+            146
+          ]
+        ]
+      },
+      "saved_metric_mismatches": []
+    },
+    "test": {
+      "metrics": {
+        "accuracy": 0.9632850241545894,
+        "top2_accuracy": 0.9942028985507246,
+        "macro_precision": 0.9603565286772662,
+        "macro_recall": 0.9600579156060828,
+        "macro_f1": 0.9601761633102563,
+        "weighted_precision": 0.9635050979349856,
+        "weighted_recall": 0.9632850241545894,
+        "weighted_f1": 0.9633622191035458,
+        "per_class": {
+          "airplane": {
+            "precision": 0.9908256880733946,
+            "recall": 0.9908256880733946,
+            "f1": 0.9908256880733946,
+            "support": 109
+          },
+          "car": {
+            "precision": 1.0,
+            "recall": 0.9793103448275862,
+            "f1": 0.9895470383275261,
+            "support": 145
+          },
+          "cat": {
+            "precision": 0.875,
+            "recall": 0.8947368421052632,
+            "f1": 0.8847583643122676,
+            "support": 133
+          },
+          "dog": {
+            "precision": 0.8461538461538461,
+            "recall": 0.8380952380952381,
+            "f1": 0.8421052631578947,
+            "support": 105
+          },
+          "flower": {
+            "precision": 0.984251968503937,
+            "recall": 0.984251968503937,
+            "f1": 0.984251968503937,
+            "support": 127
+          },
+          "fruit": {
+            "precision": 0.9933774834437086,
+            "recall": 1.0,
+            "f1": 0.9966777408637874,
+            "support": 150
+          },
+          "motorbike": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1": 1.0,
+            "support": 118
+          },
+          "person": {
+            "precision": 0.9932432432432432,
+            "recall": 0.9932432432432432,
+            "f1": 0.9932432432432432,
+            "support": 148
+          }
+        },
+        "confusion_matrix": [
+          [
+            108,
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            0
+          ],
+          [
+            0,
+            142,
+            1,
+            2,
+            0,
+            0,
+            0,
+            0
+          ],
+          [
+            1,
+            0,
+            119,
+            12,
+            0,
+            0,
+            0,
+            1
+          ],
+          [
+            0,
+            0,
+            15,
+            88,
+            2,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            2,
+            125,
+            0,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            150,
+            0,
+            0
+          ],
+          [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            118,
+            0
+          ],
+          [
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            147
+          ]
+        ]
+      },
+      "saved_metric_mismatches": [],
+      "max_probability_difference": 0.0,
+      "different_predicted_labels": 0
+    }
+  },
+  "summary_ranking_matches_selection_rule": true,
+  "notebook": {
+    "code_cells": 27,
+    "executed_code_cells": 27,
+    "placeholder_cells": [],
+    "error_outputs": []
+  },
+  "source_evidence_sha256": {
+    "cnn_lstm/data.py": "d5e98ba3c49ecd6403d1d6c6a34b1a066381637d9535364316e4667e2119bd9a",
+    "cnn_lstm/experiments.py": "e4bdcedd931e99194883bee9098df4287ac4f21001aa3fd25e1281df4cc209c8",
+    "cnn_lstm/metrics.py": "ad481aea76ed239afdf79d4c7c5295971d1bc3089a98a3d2692087dac55d49bb",
+    "cnn_lstm/models.py": "147c1d7fdc7f3fe1c623bdac60c2014afc36beb23295589413f7483a883b9f74",
+    "cnn_lstm/plots.py": "e8fabb81f550e63b8367a80ca7b76e0a3b9bd3c8e4754f37ce6e0acbf071f758",
+    "cnn_lstm/train.py": "87391253dfcc13eb8ea8233a7deb5762cefe1cfb5e219797ccf8de85af32f360",
+    "cnn_lstm/__init__.py": "24ac0cb978e8d41a6f902abe52a862ca14eed3f0760281d339f9781506a41262",
+    "results/runs/cnn_bilstm/result.json": "9ef00fec6d7d9f2b460900c132b37808c1445e03c00fec0b42b326a2af7c0a7b",
+    "results/runs/cnn_bilstm/test_probs.npy": "001ab2a4f7216c625458f22dd5529c3e65c53a99a1697c21b9da529bc9ceafcd",
+    "results/runs/cnn_lstm/result.json": "6b9eed9bba491690e0426e17a9695cb31f681400d0b71511fa0e72e2328d9e9f",
+    "results/runs/cnn_lstm/test_probs.npy": "dcbf8208acb8162dc8152499d93692eb0725486ec5f7f7fc152e4f904282b79e",
+    "results/runs/cnn_only/result.json": "7e3eb8052826569cb60a794c9ea46a7ea3bb2971de837362271170397599bb4b",
+    "results/runs/cnn_only/test_probs.npy": "2ec84ebaea5d64f49c670b498fd2a78df199009a9a8062ea832c3e203c0ac790",
+    "results/runs/pixel_lstm/result.json": "400165a430c2f933e95a988f96e07e5fe34445bdb1211d72a8f77e9bbf55828a",
+    "results/runs/pixel_lstm/test_probs.npy": "97c0798f547c1524263829037611bef3eff4d1cb3d9665be2c5fe01030dec95c",
+    "results/runs/tune_dropout03/result.json": "c554e809534cbc9d66ca3b99553eafa6b8ae9c15335c9878b1c2fbdef8870371",
+    "results/runs/tune_dropout03/test_probs.npy": "dde8d06eade80d6b7184031870646bc06aeefdd122ba87f37b0db5e7f7ee0f9d",
+    "results/runs/tune_hidden256/result.json": "a88528cb338a83592b42a22c1bb4555c1d7bf4a602426bb8bce0bfed26f1c8fe",
+    "results/runs/tune_hidden256/test_probs.npy": "80b226688efcb0f068b33f1378d5b1ef4bd452230cbf64f4fef1a12ab3bf1780",
+    "results/runs/tune_layers2/result.json": "dcc78d4b18cf367a95aebc47dd43c3fb0418fb7ab492c0b62ac52490b541265f",
+    "results/runs/tune_layers2/test_probs.npy": "9388a6bb57c475f06ee5f1456ce3ac330be0c8bd6ca73f4462d4e675e134024b",
+    "results/runs/tune_lr3e4/result.json": "59680a9ab5a0f463c521ce98ea8d6c9819c0dd95cb330a6fa23378a7a6e3e981",
+    "results/runs/tune_lr3e4/test_probs.npy": "88cf5db65d2059c559b6ec5717ba9362fabb5385af30e1739db7d3d6d7af882b",
+    "results/runs/tune_no_aug/result.json": "56dcbf3309c9ee92464eec5c7ea64da9d63192563d9ad6715ff2ad46c34bd242",
+    "results/runs/tune_no_aug/test_probs.npy": "7cdcf01c94f911e7c17c3f74c01d65b5c5f152cfd3d9449ba094ac854db36bb7",
+    "results/runs/tune_no_reg/result.json": "dd19c77f4199f6c1e6cbcef033a9c8f85d80a2fa94d914dd4753fd9ff8eafcc9",
+    "results/runs/tune_no_reg/test_probs.npy": "ac41bb3dd12fea9abace5899ddb49f1eaa26a7db9d298d396f408f6b443f7b56",
+    "artifacts/checkpoints/best_model.json": "b09e920c4083402cdca1046d5c2f6b01cfd69243e69c5a6913f5a8c4a9256f88",
+    "artifacts/checkpoints/best_model.pt": "f1ff80b305a99cf4b508af62d978d51edacfc99dd41c612aec1613c7404aba13"
+  },
+  "scope": "Existing evidence only; no retraining. Other runs' original weights and validation probabilities are unavailable. Average-hash collisions require visual review. Local hashes identify this audit's inputs and do not establish publisher identity."
+}

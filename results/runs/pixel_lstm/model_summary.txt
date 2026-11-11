@@ -1,0 +1,12 @@
+Layer                   Output shape        Params
+----------------------------------------------------
+input_norm (LayerNorm)  [2, 64, 192]        384
+lstm (LSTM)             [2, 64, 128]        296,960
+head.0 (Dropout)        [2, 128]            0
+head.1 (Linear)         [2, 128]            16,384
+head.2 (BatchNorm1d)    [2, 128]            256
+head.3 (ReLU)           [2, 128]            0
+head.4 (Dropout)        [2, 128]            0
+head.5 (Linear)         [2, 8]              1,032
+----------------------------------------------------
+Total trainable parameters: 315,016

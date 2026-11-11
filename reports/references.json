@@ -1,0 +1,254 @@
+[
+  [
+    [
+      "Donahue, J., Hendricks, L. A., Guadarrama, S., Rohrbach, M., Venugopalan, S., Saenko, K., & Darrell, T. (2015). Long-term recurrent convolutional networks for visual recognition and description. In ",
+      false
+    ],
+    [
+      "Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition",
+      true
+    ],
+    [
+      " (pp. 2625–2634). https://doi.org/10.1109/CVPR.2015.7298878",
+      false
+    ]
+  ],
+  [
+    [
+      "Efron, B. (1979). Bootstrap methods: Another look at the jackknife. ",
+      false
+    ],
+    [
+      "The Annals of Statistics, 7",
+      true
+    ],
+    [
+      "(1), 1–26. https://doi.org/10.1214/aos/1176344552",
+      false
+    ]
+  ],
+  [
+    [
+      "Gers, F. A., Schmidhuber, J., & Cummins, F. (2000). Learning to forget: Continual prediction with LSTM. ",
+      false
+    ],
+    [
+      "Neural Computation, 12",
+      true
+    ],
+    [
+      "(10), 2451–2471. https://doi.org/10.1162/089976600300015015",
+      false
+    ]
+  ],
+  [
+    [
+      "Hochreiter, S., & Schmidhuber, J. (1997). Long short-term memory. ",
+      false
+    ],
+    [
+      "Neural Computation, 9",
+      true
+    ],
+    [
+      "(8), 1735–1780. https://doi.org/10.1162/neco.1997.9.8.1735",
+      false
+    ]
+  ],
+  [
+    [
+      "Ioffe, S., & Szegedy, C. (2015). Batch normalization: Accelerating deep network training by reducing internal covariate shift. In ",
+      false
+    ],
+    [
+      "Proceedings of the 32nd International Conference on Machine Learning",
+      true
+    ],
+    [
+      " (pp. 448–456). PMLR. https://proceedings.mlr.press/v37/ioffe15.html",
+      false
+    ]
+  ],
+  [
+    [
+      "Krizhevsky, A. (2009). ",
+      false
+    ],
+    [
+      "Learning multiple layers of features from tiny images",
+      true
+    ],
+    [
+      " [Technical report]. University of Toronto. https://www.cs.toronto.edu/~kriz/learning-features-2009-TR.pdf",
+      false
+    ]
+  ],
+  [
+    [
+      "LeCun, Y., Bottou, L., Bengio, Y., & Haffner, P. (1998). Gradient-based learning applied to document recognition. ",
+      false
+    ],
+    [
+      "Proceedings of the IEEE, 86",
+      true
+    ],
+    [
+      "(11), 2278–2324. https://doi.org/10.1109/5.726791",
+      false
+    ]
+  ],
+  [
+    [
+      "Loshchilov, I., & Hutter, F. (2019). Decoupled weight decay regularization. ",
+      false
+    ],
+    [
+      "International Conference on Learning Representations",
+      true
+    ],
+    [
+      ". https://arxiv.org/abs/1711.05101",
+      false
+    ]
+  ],
+  [
+    [
+      "Paszke, A., Gross, S., Massa, F., Lerer, A., Bradbury, J., Chanan, G., Killeen, T., Lin, Z., Gimelshein, N., Antiga, L., Desmaison, A., Köpf, A., Yang, E., DeVito, Z., Raison, M., Tejani, A., Chilamkurthy, S., Steiner, B., Fang, L., … Chintala, S. (2019). PyTorch: An imperative style, high-performance deep learning library. In ",
+      false
+    ],
+    [
+      "Advances in Neural Information Processing Systems 32",
+      true
+    ],
+    [
+      " (pp. 8024–8035). Curran Associates. https://proceedings.neurips.cc/paper/2019/hash/bdbca288fee7f92f2bfa9f7012727740-Abstract.html",
+      false
+    ]
+  ],
+  [
+    [
+      "Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O., Blondel, M., Prettenhofer, P., Weiss, R., Dubourg, V., Vanderplas, J., Passos, A., Cournapeau, D., Brucher, M., Perrot, M., & Duchesnay, É. (2011). Scikit-learn: Machine learning in Python. ",
+      false
+    ],
+    [
+      "Journal of Machine Learning Research, 12",
+      true
+    ],
+    [
+      ", 2825–2830. https://jmlr.org/papers/v12/pedregosa11a.html",
+      false
+    ]
+  ],
+  [
+    [
+      "Roy, P. (2018). ",
+      false
+    ],
+    [
+      "Natural images",
+      true
+    ],
+    [
+      " [Data set]. Kaggle. https://www.kaggle.com/datasets/prasunroy/natural-images",
+      false
+    ]
+  ],
+  [
+    [
+      "Schuster, M., & Paliwal, K. K. (1997). Bidirectional recurrent neural networks. ",
+      false
+    ],
+    [
+      "IEEE Transactions on Signal Processing, 45",
+      true
+    ],
+    [
+      "(11), 2673–2681. https://doi.org/10.1109/78.650093",
+      false
+    ]
+  ],
+  [
+    [
+      "Shi, B., Bai, X., & Yao, C. (2017). An end-to-end trainable neural network for image-based sequence recognition and its application to scene text recognition. ",
+      false
+    ],
+    [
+      "IEEE Transactions on Pattern Analysis and Machine Intelligence, 39",
+      true
+    ],
+    [
+      "(11), 2298–2304. https://doi.org/10.1109/TPAMI.2016.2646371",
+      false
+    ]
+  ],
+  [
+    [
+      "Smith, L. N., & Topin, N. (2018). ",
+      false
+    ],
+    [
+      "Super-convergence: Very fast training of neural networks using large learning rates",
+      true
+    ],
+    [
+      " (arXiv:1708.07120v3) [Preprint]. arXiv. https://arxiv.org/abs/1708.07120v3",
+      false
+    ]
+  ],
+  [
+    [
+      "Srivastava, N., Hinton, G., Krizhevsky, A., Sutskever, I., & Salakhutdinov, R. (2014). Dropout: A simple way to prevent neural networks from overfitting. ",
+      false
+    ],
+    [
+      "Journal of Machine Learning Research, 15",
+      true
+    ],
+    [
+      "(56), 1929–1958. https://jmlr.org/papers/v15/srivastava14a.html",
+      false
+    ]
+  ],
+  [
+    [
+      "Tompson, J., Goroshin, R., Jain, A., LeCun, Y., & Bregler, C. (2015). Efficient object localization using convolutional networks. In ",
+      false
+    ],
+    [
+      "Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition",
+      true
+    ],
+    [
+      " (pp. 648–656). https://doi.org/10.1109/CVPR.2015.7298664",
+      false
+    ]
+  ],
+  [
+    [
+      "Visin, F., Kastner, K., Cho, K., Matteucci, M., Courville, A., & Bengio, Y. (2015). ",
+      false
+    ],
+    [
+      "ReNet: A recurrent neural network based alternative to convolutional networks",
+      true
+    ],
+    [
+      " (arXiv:1505.00393). arXiv. https://doi.org/10.48550/arXiv.1505.00393",
+      false
+    ]
+  ],
+  [
+    [
+      "Wilson, E. B. (1927). Probable inference, the law of succession, and statistical inference. ",
+      false
+    ],
+    [
+      "Journal of the American Statistical Association, 22",
+      true
+    ],
+    [
+      "(158), 209–212. https://doi.org/10.1080/01621459.1927.10502953",
+      false
+    ]
+  ]
+]

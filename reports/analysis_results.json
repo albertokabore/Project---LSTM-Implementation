@@ -1,0 +1,61 @@
+{
+  "selected": "tune_no_reg",
+  "test_images": 1035,
+  "correct": 997,
+  "accuracy": 0.9632850241545894,
+  "accuracy_wilson_95": [
+    0.9500083127117734,
+    0.973135437335196
+  ],
+  "macro_f1": 0.9601761633102563,
+  "macro_f1_bootstrap_95": [
+    0.9480578182504222,
+    0.9718344165010384
+  ],
+  "bootstrap": {
+    "resamples": 2000,
+    "seed": 42,
+    "method": "Class-stratified percentile bootstrap; class supports fixed."
+  },
+  "selected_minus_baseline_accuracy": 0.04154589371980677,
+  "paired_accuracy_improvement_bootstrap_95": [
+    0.02608695652173909,
+    0.05700483091787445
+  ],
+  "selected_correct_baseline_wrong": 58,
+  "selected_wrong_baseline_correct": 15,
+  "sensitivity": {
+    "hash_match_candidates": {
+      "images": 41,
+      "correct": 41,
+      "accuracy": 1.0
+    },
+    "remaining_test_images": {
+      "images": 994,
+      "correct": 956,
+      "accuracy": 0.9617706237424547,
+      "macro_f1": 0.9600358901467274
+    }
+  },
+  "recorded_total_elapsed_hours": 26.15398039944444,
+  "median_epoch_seconds": {
+    "cnn_bilstm": 68.74831549999362,
+    "cnn_lstm": 65.17953804999706,
+    "cnn_only": 61.13235215000168,
+    "pixel_lstm": 11.121731000006548,
+    "tune_dropout03": 71.65519954999036,
+    "tune_hidden256": 70.9315134500066,
+    "tune_layers2": 92.81758730002912,
+    "tune_lr3e4": 70.38091194999288,
+    "tune_no_aug": 78.16466394999588,
+    "tune_no_reg": 71.40924700000323
+  },
+  "scope": "Post hoc descriptive analysis of the original image split. Intervals condition on the fitted models and assume independent sampled images; they exclude retraining, seed, selection, distribution-shift and related-image uncertainty. Hash-filtered results do not correct leakage.",
+  "input_sha256": {
+    "results/data_info.json": "dc3935d35e35b616b0e09cff3e10f70f485a6abb179739a40e8b19647dd3de68",
+    "results/summary.json": "a885a688e872c387b62e64075e2d0122b33db469924a7e4aa75a8693d4bba6c8",
+    "results/runs/tune_no_reg/test_probs.npy": "ac41bb3dd12fea9abace5899ddb49f1eaa26a7db9d298d396f408f6b443f7b56",
+    "results/runs/cnn_bilstm/test_probs.npy": "001ab2a4f7216c625458f22dd5529c3e65c53a99a1697c21b9da529bc9ceafcd",
+    "reports/audit_evidence/image_inventory.json": "b811293cac62788e3b53b34446acd6cc42d50210d097f72d9090a9a0a8027d8d"
+  }
+}

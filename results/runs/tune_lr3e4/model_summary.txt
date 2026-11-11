@@ -1,0 +1,36 @@
+Layer                                Output shape        Params
+-----------------------------------------------------------------
+backbone.features.0.0 (Conv2d)       [2, 32, 64, 64]     864
+backbone.features.0.1 (BatchNorm2d)  [2, 32, 64, 64]     64
+backbone.features.0.2 (ReLU)         [2, 32, 64, 64]     0
+backbone.features.0.3 (Conv2d)       [2, 32, 64, 64]     9,216
+backbone.features.0.4 (BatchNorm2d)  [2, 32, 64, 64]     64
+backbone.features.0.5 (ReLU)         [2, 32, 64, 64]     0
+backbone.features.0.6 (MaxPool2d)    [2, 32, 32, 32]     0
+backbone.features.0.7 (Dropout2d)    [2, 32, 32, 32]     0
+backbone.features.1.0 (Conv2d)       [2, 64, 32, 32]     18,432
+backbone.features.1.1 (BatchNorm2d)  [2, 64, 32, 32]     128
+backbone.features.1.2 (ReLU)         [2, 64, 32, 32]     0
+backbone.features.1.3 (Conv2d)       [2, 64, 32, 32]     36,864
+backbone.features.1.4 (BatchNorm2d)  [2, 64, 32, 32]     128
+backbone.features.1.5 (ReLU)         [2, 64, 32, 32]     0
+backbone.features.1.6 (MaxPool2d)    [2, 64, 16, 16]     0
+backbone.features.1.7 (Dropout2d)    [2, 64, 16, 16]     0
+backbone.features.2.0 (Conv2d)       [2, 128, 16, 16]    73,728
+backbone.features.2.1 (BatchNorm2d)  [2, 128, 16, 16]    256
+backbone.features.2.2 (ReLU)         [2, 128, 16, 16]    0
+backbone.features.2.3 (Conv2d)       [2, 128, 16, 16]    147,456
+backbone.features.2.4 (BatchNorm2d)  [2, 128, 16, 16]    256
+backbone.features.2.5 (ReLU)         [2, 128, 16, 16]    0
+backbone.features.2.6 (MaxPool2d)    [2, 128, 8, 8]      0
+backbone.features.2.7 (Dropout2d)    [2, 128, 8, 8]      0
+seq_dropout (Dropout)                [2, 8, 1024]        0
+lstm (LSTM)                          [2, 8, 256]         1,181,696
+head.0 (Dropout)                     [2, 256]            0
+head.1 (Linear)                      [2, 128]            32,768
+head.2 (BatchNorm1d)                 [2, 128]            256
+head.3 (ReLU)                        [2, 128]            0
+head.4 (Dropout)                     [2, 128]            0
+head.5 (Linear)                      [2, 8]              1,032
+-----------------------------------------------------------------
+Total trainable parameters: 1,503,208

@@ -1,0 +1,209 @@
+{
+  "abstract": [
+    "A convolutional neural network with bidirectional Long Short-Term Memory was evaluated for eight-class classification using the Natural Images dataset. Exact-duplicate indexing reduced 6,899 photographs to 6,897 images, allocated to training (4,827), validation (1,035) and testing (1,035). Inputs were resized to 64x64 and normalized using training statistics. Ten experiments compared four architectures and six training or parameter variations. Validation macro F1 selected a configuration without augmentation, dropout or weight decay; batch normalization was retained. The epoch-17 checkpoint correctly classified 997 test images, achieving 96.33% accuracy, 96.04% macro precision, 96.01% macro recall and 0.9602 macro F1. Cat-dog confusion accounted for 27 of 38 errors. Possible related-image overlap, unequal model capacity and a single seed restrict generalization. Further evaluation requires verified image groups, repeated seeds and comparable tuning budgets."
+  ],
+  "cleaning_findings": [
+    "All 6,899 photographs decode and use RGB color. None are empty; one file with a JPEG extension contains PNG data.",
+    "Two pairs contain identical bytes within the car and flower classes. Indexing each pair once leaves 6,897 images for modelling.",
+    "A total of 38 images have a side shorter than 64 pixels. Upscaling cannot recover detail absent from the originals.",
+    "Aspect ratios range from 0.20 to 5.89, with 920 images outside 0.5 to 2.0. Square resizing changes their object proportions.",
+    "Average hashes identify 276 candidates, including 257 fruit images. Hash matches indicate possible similarity and require visual checks before grouping."
+  ],
+  "challenges": [
+    "Recorded elapsed durations totalled 26.15 hours, including unexplained intervals. These records do not measure active CPU time. The selected run recorded 25.37 minutes.",
+    "Historical metadata retained Python, PyTorch, processor and thread information. Other package versions were not recorded comprehensively; the reviewed environment cannot establish the full historical dependency set."
+  ],
+  "results_discussion": [
+    "The model correctly classified 997 of 1,035 test images, producing 96.33% accuracy and macro F1 of 0.9602 on this split.",
+    "Macro precision was 96.04% and macro recall was 96.01%. The checkpoint audit reproduced the test probabilities, with no changed predictions.",
+    "Dogs had F1 of 0.8421 and cats had 0.8848. Confusion between these classes accounted for 27 of the 38 errors.",
+    "118 motorbike images were classified correctly. Fruit recall was 100%, although similar images across splits limit interpretation of those scores.",
+    "Measurements describe one split and seed. Similarity between images across splits limits conclusions about reported classification performance on independent photographs."
+  ],
+  "results_improve": [
+    "Use validation examples to investigate animal-class errors by annotation ambiguity, object scale, occlusion and background. Compare targeted sampling and higher input resolution under a fixed protocol.",
+    "Compare square resizing with aspect-preserving padding while holding the split, architecture and training budget constant. Evaluate animal-class F1 alongside aggregate metrics.",
+    "Test potential acquisition shortcuts using a color-statistic baseline and prespecified illumination perturbations. Class brightness differences alone do not establish model dependence.",
+    "Construct visually verified image groups before another split and reserve an external holdout for final evaluation."
+  ],
+  "optimisation_experiments": [
+    "The architecture comparison included a pixel LSTM, a CNN with global average pooling, and CNNs with unidirectional or bidirectional LSTM. All experiments used the original split and seed 42.",
+    "Five tuning runs separately changed hidden units (128 to 256), recurrent depth (one to two layers), dropout (0.5 to 0.3), peak learning rate (0.001 to 0.0003), or augmentation. A sixth run disabled augmentation, dropout and weight decay jointly. The lower learning rate was evaluated under the same 20-epoch cap, which may limit that comparison."
+  ],
+  "optimisation_insights": [
+    "Baseline test accuracies were 82.61% for pixel LSTM, 87.63% for CNN, 89.86% for CNN with LSTM, and 92.17% for bidirectional recurrence.",
+    "The configuration reached validation macro F1 of 0.9471, compared with 0.9040 for the baseline. Selection used validation scores throughout.",
+    "Disabling augmentation alone produced validation macro F1 of 0.9342. Disabling augmentation, dropout, and weight decay together produced the highest validation score.",
+    "The combined change does not isolate dropout or weight decay effects. Controlled runs are needed before attributing improvement to either.",
+    "Increasing size or depth did not exceed the selected score. Unequal capacity and tuning coverage restrict claims about superiority."
+  ],
+  "conclusion_findings": [
+    "The validation-selected CNN with bidirectional LSTM classified 997 of 1,035 test images correctly, achieving 96.33% accuracy and 0.9602 macro F1. These estimates characterize the original split and seed. Conditional uncertainty intervals quantify sampling variation, while independent-image performance requires evaluation on photographs separated by object identity or acquisition source.",
+    "Cat and dog discrimination should receive priority in subsequent experiments. Confusion between these classes produced 27 of 38 errors; their F1 scores were 0.8848 and 0.8421, respectively. Validation-based review should examine annotation ambiguity, occlusion, object scale and background composition before evaluating targeted sampling or resolution changes under a fixed protocol.",
+    "Similarity screening identified 41 test images with average hashes also present in training or validation data. Candidate matches require visual confirmation because hash equality does not establish duplication. Confirmed image families should remain together during splitting. Performance on the remaining images is descriptive and cannot substitute for an independent holdout."
+  ],
+  "conclusion_future": [
+    "The selected configuration disabled augmentation, dropout and weight decay while retaining batch normalization. Its validation macro F1 exceeded the baseline, but the combined ablation cannot identify individual contributions. Separate controlled experiments should vary these settings independently, with equal training budgets and repeated seeds used to estimate variability across fitted models.",
+    "Model complexity should be assessed alongside classification performance. The selected model contains 1,503,208 parameters, versus 305,128 in the CNN baseline. Comparable tuning searches are needed before attributing gains to recurrence. Deployment comparisons should report inference latency, memory use and class-specific accuracy under the same hardware conditions and representative image distributions.",
+    "Reproducibility requires retained split assignments, complete configurations, package version inventories, predictions and model checkpoints. Historical elapsed durations include unexplained intervals and do not measure active computation. Future studies should record computational conditions, freeze validation-based selection before test evaluation, and report uncertainty across seeds. Aspect-preserving resizing and acquisition-related shortcuts warrant prespecified validation comparisons."
+  ],
+  "observations": {
+    "intro": [
+      "The project classifies photographs into eight Natural Images categories using a CNN feature extractor followed by an LSTM over rows.",
+      "Reading feature rows as a sequence provides a testable hypothesis about spatial information; performance must be compared against classification models.",
+      "The comparisons include a pixel LSTM, a CNN, and models with unidirectional or bidirectional recurrence, all using the same split.",
+      "Validation macro F1 ranks configurations, while validation loss selects the checkpoint per run. Test metrics describe the selected model's performance.",
+      "Results come from one seed and unequal model sizes, so the comparisons cannot establish that recurrence alone explains any improvement."
+    ],
+    "setup": [
+      "The environment uses Python 3.11.0 and PyTorch 2.14.0 with a CPU build, eight processing threads, and no available CUDA device.",
+      "All ten experiments shared the same input dimensions, image split and normalization statistics, supporting comparison under consistent data preparation conditions.",
+      "Seed 42 controls the data split and random operations. Results can still differ when software versions, hardware, or settings change.",
+      "Saved results cover ten experiments. Their recorded elapsed durations total 26.15 hours, including long intervals whose causes were not diagnosed.",
+      "The selected run records 25.37 minutes. Elapsed durations do not establish active computation time or predict runtime on another machine."
+    ],
+    "collection": [
+      "The archive contains 13,798 files totalling 359,403,192 bytes. These totals include two folders containing the same set of 6,899 photographs.",
+      "All filenames match between the folders, and direct byte comparisons confirm that every image pair contains the same bytes.",
+      "The pipeline reads only the natural_images folder. Reading both copies before splitting could place identical images in training and test.",
+      "The publisher audit reports matching filenames and file sizes. Publisher hashes were unavailable, so that comparison does not verify content cryptographically.",
+      "Dataset files remain unchanged. Cleaning affects the index used for analysis, while photographs remain available for inspection and subsequent verification."
+    ],
+    "cleaning": [
+      "All 6,899 photographs decode and use RGB color. None are empty; one file with a JPEG extension contains PNG data.",
+      "Two pairs contain identical bytes within the car and flower classes. Indexing each pair once leaves 6,897 images for modelling.",
+      "A total of 38 images have a side shorter than 64 pixels. Upscaling cannot recover detail absent from the originals.",
+      "Aspect ratios range from 0.20 to 5.89, with 920 images outside 0.5 to 2.0. Square resizing changes their object proportions.",
+      "Average hashes identify 276 candidates, including 257 fruit images. Hash matches indicate possible similarity and require visual checks before grouping."
+    ],
+    "eda": [
+      "Fruit contains 1,000 photographs and dog contains 702, giving a largest to smallest class ratio of 1.42. Class frequencies are unequal.",
+      "Macro F1 gives each class equal influence, making performance on smaller categories easier to identify than overall accuracy alone.",
+      "Car and fruit images are 100x100 pixels. Resizing removes dimension differences, although compression and sampling patterns may be associated with labels.",
+      "Fruit has mean brightness 0.617, compared with 0.408 to 0.487 elsewhere. This difference suggests a background or lighting shortcut.",
+      "Airplane images have median dimensions of 296x92 pixels. Resizing them to 64x64 distorts proportions and warrants comparing padding before resizing."
+    ],
+    "preprocessing": [
+      "Stratification assigns 4,827 to training, 1,035 to validation, and 1,035 to testing. Seed 42 fixes the split, preserving class proportions.",
+      "Training images determine means of 0.510, 0.464, and 0.419, with standard deviations of 0.287, 0.279, and 0.292 for RGB.",
+      "Inputs use 64x64 RGB arrays produced by bicubic resizing. Cached arrays match fresh conversions in the audit, supporting preprocessing consistency.",
+      "41 test images share identical average hashes with training or validation images: 38 fruit and three motorbikes. Their impact remains unmeasured.",
+      "Augmentation applies only when enabled during training. Validation and test inputs receive resizing and normalization; the selected configuration disables augmentation."
+    ],
+    "model": [
+      "The CNN with bidirectional LSTM contains 1,503,208 trainable parameters. Its recurrent layer contributes 1,181,696 parameters, approximately 79% of the total.",
+      "The convolutional backbone contains 287,456 parameters and the classification head contains 34,056. Convolutions produce an 8x8 map with 128 channels.",
+      "Each row supplies 1,024 values to the recurrent layer, yielding eight sequence steps and 128 hidden units in each direction.",
+      "The pixel LSTM and CNN controls contain 315,016 and 305,128 parameters. Their capacity limits conclusions about recurrence from accuracy differences.",
+      "Feature positions are eight pixels apart. Each final convolutional cell has a 36x36 receptive field before rows enter the LSTM."
+    ],
+    "training": [
+      "Ten experiments ran for 20 epochs. The selected configuration retained epoch 17, when its validation loss reached the minimum.",
+      "The selected run disabled augmentation, dropout, and weight decay while retaining batch normalization, gradient clipping, and the checkpoint selection rule.",
+      "At the retained epoch, training accuracy was 100% and validation accuracy was 95.17%. This difference warrants evaluation on independent images.",
+      "Training loss was 0.00118 and validation loss was 0.16317. Training and evaluation settings differ, which affects comparisons between these values.",
+      "Runs are ranked by validation macro F1. Test scores are logged per experiment; evaluation was not deferred until all experiments finished."
+    ],
+    "evaluation": [
+      "The model correctly classified 997 of 1,035 test images, producing 96.33% accuracy and macro F1 of 0.9602 on this split.",
+      "Macro precision was 96.04% and macro recall was 96.01%. The checkpoint audit reproduced the test probabilities, with no changed predictions.",
+      "Dogs had F1 of 0.8421 and cats had 0.8848. Confusion between these classes accounted for 27 of the 38 errors.",
+      "118 motorbike images were classified correctly. Fruit recall was 100%, although similar images across splits limit interpretation of those scores.",
+      "Measurements describe one split and seed. Similarity between images across splits limits conclusions about reported classification performance on independent photographs."
+    ],
+    "optimisation": [
+      "Baseline test accuracies were 82.61% for pixel LSTM, 87.63% for CNN, 89.86% for CNN with LSTM, and 92.17% for bidirectional recurrence.",
+      "The configuration reached validation macro F1 of 0.9471, compared with 0.9040 for the baseline. Selection used validation scores throughout.",
+      "Disabling augmentation alone produced validation macro F1 of 0.9342. Disabling augmentation, dropout, and weight decay together produced the highest validation score.",
+      "The combined change does not isolate dropout or weight decay effects. Controlled runs are needed before attributing improvement to either.",
+      "Increasing size or depth did not exceed the selected score. Unequal capacity and tuning coverage restrict claims about superiority."
+    ]
+  },
+  "final_insights": [
+    "The validation-selected CNN with bidirectional LSTM classified 997 of 1,035 test images correctly, achieving 96.33% accuracy and 0.9602 macro F1. These estimates characterize the original split and seed. Conditional uncertainty intervals quantify sampling variation, while independent-image performance requires evaluation on photographs separated by object identity or acquisition source.",
+    "Cat and dog discrimination should receive priority in subsequent experiments. Confusion between these classes produced 27 of 38 errors; their F1 scores were 0.8848 and 0.8421, respectively. Validation-based review should examine annotation ambiguity, occlusion, object scale and background composition before evaluating targeted sampling or resolution changes under a fixed protocol.",
+    "Similarity screening identified 41 test images with average hashes also present in training or validation data. Candidate matches require visual confirmation because hash equality does not establish duplication. Confirmed image families should remain together during splitting. Performance on the remaining images is descriptive and cannot substitute for an independent holdout.",
+    "The selected configuration disabled augmentation, dropout and weight decay while retaining batch normalization. Its validation macro F1 exceeded the baseline, but the combined ablation cannot identify individual contributions. Separate controlled experiments should vary these settings independently, with equal training budgets and repeated seeds used to estimate variability across fitted models.",
+    "Model complexity should be assessed alongside classification performance. The selected model contains 1,503,208 parameters, versus 305,128 in the CNN baseline. Comparable tuning searches are needed before attributing gains to recurrence. Deployment comparisons should report inference latency, memory use and class-specific accuracy under the same hardware conditions and representative image distributions.",
+    "Reproducibility requires retained split assignments, complete configurations, package version inventories, predictions and model checkpoints. Historical elapsed durations include unexplained intervals and do not measure active computation. Future studies should record computational conditions, freeze validation-based selection before test evaluation, and report uncertainty across seeds. Aspect-preserving resizing and acquisition-related shortcuts warrant prespecified validation comparisons."
+  ],
+  "author": {
+    "name": "Albert Kabore",
+    "role": "PhD student",
+    "institution": "University of the Cumberlands"
+  },
+  "notebook": {
+    "sections": {
+      "d5e1e464": "## 1. Introduction\n\nConvolutional neural networks (CNNs) extract image features using filters shared across spatial locations. Long Short-Term Memory (LSTM) networks process ordered inputs through recurrent states and gated memory.\n\nIn this study, each row of a CNN feature map forms one sequence step. A bidirectional LSTM processes the rows in both directions, preserving row order when forming the classification features.\n\nThe study compares CNN-LSTM models with pixel LSTM and CNN baselines, evaluates classification errors, and examines the effects of architecture and training settings.",
+      "fc99d138": "## 2. Computational Environment",
+      "25d910f1": "## 3. Dataset\n\nNatural Images contains 6,899 RGB photographs across eight object classes.",
+      "007f63d6": "## 4. Data Quality\n\nImages were examined for decoding failures, inconsistent formats, exact duplicates and perceptual similarity.",
+      "7696048a": "### Data Cleaning Decisions\n\n| Finding | Treatment |\n| --- | --- |\n| Duplicate archive copy | Use one copy of the dataset |\n| Byte-identical image pairs | Retain one image per pair |\n| Variable image dimensions | Resize RGB inputs to 64x64 pixels |\n| Unreadable images | None identified |",
+      "072c71d2": "## 5. Exploratory Data Analysis",
+      "0e2b6c5e": "## 6. Image Preprocessing\n\n- Images were resized to 64x64 RGB using bicubic interpolation.\n- Stratified training, validation and test splits used a 70/15/15 allocation and seed 42.\n- Channel normalization used training-set means and standard deviations.\n- When enabled, training augmentation included horizontal flips, reflection-padded shifts of up to six pixels, and brightness and contrast factors between 0.8 and 1.2.\n- Validation and test images received deterministic resizing and normalization.",
+      "85fd8c45": "## 7. Model Architecture\n\nThe CNN contains three blocks, each with two 3x3 convolutions, batch normalization, ReLU and 2x2 max pooling. The 64x64x3 input becomes an 8x8x128 feature map.\n\nEach feature-map row supplies 1,024 values to a bidirectional LSTM with 128 hidden units per direction. The final forward and backward states form a 256-value vector, which a classification head maps to eight class scores.\n\nThe baseline uses spatial dropout of 0.1 and sequence/head dropout of 0.5. The selected configuration sets these probabilities to zero.\n\nThe pixel LSTM processes 64 rows of image pixels. The CNN baseline replaces recurrence with global average pooling.",
+      "542a037e": "## 8. Model Training\n\nTraining used AdamW, a one-cycle learning-rate schedule, batch size 64, gradient clipping at 1.0 and a 20-epoch limit. Baseline weight decay was 0.0001 and the peak learning rate was 0.001.\n\nValidation loss determined checkpoint retention, with a six-epoch early-stopping patience. Validation macro F1 determined the configuration ranking. The selected configuration disabled augmentation, dropout and weight decay while retaining batch normalization.\n\nModels were implemented in PyTorch, with classification metrics calculated using scikit-learn.",
+      "4c52b395": "## 9. Test Set Performance\n\nPerformance was evaluated on 1,035 test images using accuracy, precision, recall and F1. The confusion matrix and class-level metrics were used to examine classification errors.",
+      "evaluation-method": "### Confidence Intervals and Sensitivity Analysis\n\nAccuracy intervals use the Wilson method. Macro F1 intervals use 2,000 bootstrap resamples within true classes, with replacement, seed 42 and fixed class counts. Paired model comparisons use the same sampled images.\n\nThese intervals condition on the fitted models and assume independent images. They exclude retraining, seed, selection and distribution-shift uncertainty. Related images may violate independence.\n\nScores after excluding average-hash candidates describe a post hoc subset of the original test set; they do not establish an independent holdout.",
+      "cab35fe9": "## 10. Hyperparameter Tuning\n\nFour architectures were compared using the same split and seed. Five tuning runs separately changed hidden size, recurrent depth, dropout, learning rate or augmentation. A sixth run disabled augmentation, dropout and weight decay jointly.\n\nThe combined ablation does not isolate the effect of each setting. Configuration selection used validation macro F1."
+    },
+    "observations": {
+      "a1533947": [
+        "intro",
+        "Experimental Design"
+      ],
+      "3a8357ba": [
+        "setup",
+        "Computing Resources"
+      ],
+      "6be42b08": [
+        "collection",
+        "Dataset Structure"
+      ],
+      "5beaebd0": [
+        "cleaning",
+        "Image Quality"
+      ],
+      "a1ff530e": [
+        "eda",
+        "Class Distribution and Image Characteristics"
+      ],
+      "02fa514c": [
+        "preprocessing",
+        "Data Split and Normalization"
+      ],
+      "5fd91115": [
+        "model",
+        "Model Complexity"
+      ],
+      "2acf46a8": [
+        "training",
+        "Training Results"
+      ],
+      "8b407e4c": [
+        "evaluation",
+        "Classification Results"
+      ],
+      "1f83b30a": [
+        "optimisation",
+        "Tuning Results"
+      ]
+    },
+    "titles": [
+      "Introduction",
+      "Computational Environment",
+      "Dataset",
+      "Data Quality",
+      "Exploratory Data Analysis",
+      "Image Preprocessing",
+      "Model Architecture",
+      "Model Training",
+      "Test Set Performance",
+      "Hyperparameter Tuning",
+      "Final Insights and Recommendations",
+      "Conclusion"
+    ],
+    "title": "CNN-LSTM Image Classification",
+    "conclusion": "The selected CNN-BiLSTM achieved 96.33% test accuracy and 0.9602 macro F1 on the original split. Cat-dog confusion was the principal error source. These results support the tested configuration, while broader generalization requires independent image groups, repeated seeds and controlled comparisons with simpler models."
+  }
+}

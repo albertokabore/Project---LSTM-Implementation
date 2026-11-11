@@ -1,0 +1,38 @@
+{
+  "architecture_diagram.png": {
+    "text_objects": 26,
+    "nonblack_text_objects": 0
+  },
+  "class_distribution.png": {
+    "text_objects": 21,
+    "nonblack_text_objects": 0
+  },
+  "augmentation_examples.png": {
+    "text_objects": 5,
+    "nonblack_text_objects": 0
+  },
+  "training_curves_selected.png": {
+    "text_objects": 9,
+    "nonblack_text_objects": 0
+  },
+  "training_curves_baseline.png": {
+    "text_objects": 9,
+    "nonblack_text_objects": 0
+  },
+  "confusion_matrix_selected.png": {
+    "text_objects": 53,
+    "nonblack_text_objects": 0
+  },
+  "experiment_comparison.png": {
+    "text_objects": 34,
+    "nonblack_text_objects": 0
+  },
+  "architecture_curves.png": {
+    "text_objects": 7,
+    "nonblack_text_objects": 0
+  },
+  "sample_predictions.png": {
+    "text_objects": 17,
+    "nonblack_text_objects": 0
+  }
+}
