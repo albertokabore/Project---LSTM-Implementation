@@ -18,6 +18,7 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 from matplotlib.colors import LinearSegmentedColormap  # noqa: E402
+from matplotlib.ticker import MaxNLocator, PercentFormatter  # noqa: E402
 import numpy as np  # noqa: E402
 import torch  # noqa: E402
 
@@ -25,9 +26,10 @@ from .data import Augmenter, index_dataset, load_image, stratified_split  # noqa
 from .experiments import DATA_ROOT, IMAGE_SIZE, RESULTS_DIR  # noqa: E402
 
 FIG_DIR = RESULTS_DIR / "figures"
-GREY, ACCENT = "#777777", "#000000"
-HEATMAP = LinearSegmentedColormap.from_list("report_gray", ["#ffffff", "#c4c4c4"])
-plt.rcParams.update({"figure.dpi": 120, "savefig.bbox": "tight", "axes.spines.top": False,
+BLUE, ORANGE, TEAL, PURPLE = "#0072B2", "#D55E00", "#009E73", "#CC79A7"
+GREY = "#6B7280"
+HEATMAP = LinearSegmentedColormap.from_list("report_blue", ["#F1F7FD", "#6BAED6", "#08519C"])
+plt.rcParams.update({"figure.dpi": 120, "savefig.dpi": 200, "savefig.bbox": "tight", "axes.spines.top": False,
                      "axes.spines.right": False, "font.size": 10,
                      "text.color": "black", "axes.labelcolor": "black", "axes.titlecolor": "black",
                      "xtick.color": "black", "ytick.color": "black"})
@@ -46,14 +48,17 @@ def class_distribution(info):
     x = np.arange(len(classes))
     fig, ax = plt.subplots(figsize=(8, 3.6))
     bottom = np.zeros(len(classes))
-    for split, shade in (("train", 1.0), ("val", 0.6), ("test", 0.35)):
+    for split, color, label in (("train", BLUE, "Training"), ("val", ORANGE, "Validation"),
+                                ("test", TEAL, "Test")):
         vals = np.array(counts[split])
-        ax.bar(x, vals, bottom=bottom, color=ACCENT, alpha=shade, label=split)
+        ax.bar(x, vals, bottom=bottom, color=color, edgecolor="white", linewidth=0.5, label=label)
         bottom += vals
     ax.set_xticks(x, classes)
     ax.set_ylabel("Images")
     ax.set_title("Images per class and split (stratified 70/15/15)")
-    ax.legend(frameon=False)
+    ax.set_ylim(0, bottom.max() * 1.18)
+    ax.legend(frameon=False, ncol=3, loc="upper center")
+    fig.tight_layout()
     fig.savefig(FIG_DIR / "class_distribution.png")
     plt.close(fig)
 
@@ -83,13 +88,18 @@ def training_curves(run, fname):
     ep = np.arange(1, len(h["train_loss"]) + 1)
     fig, (a1, a2) = plt.subplots(1, 2, figsize=(10, 3.6))
     for ax, key, label in ((a1, "loss", "Cross-entropy loss"), (a2, "acc", "Accuracy")):
-        ax.plot(ep, h[f"train_{key}"], color=GREY, ls="--", label="train")
-        ax.plot(ep, h[f"val_{key}"], color=ACCENT, label="validation")
-        ax.axvline(h["best_epoch"], color="k", ls=":", lw=1)
+        ax.plot(ep, h[f"train_{key}"], color=BLUE, ls="--", lw=2, label="Training")
+        ax.plot(ep, h[f"val_{key}"], color=ORANGE, lw=2, label="Validation")
+        ax.axvline(h["best_epoch"], color=GREY, ls=":", lw=1.2)
         ax.set_xlabel("Epoch")
+        ax.xaxis.set_major_locator(MaxNLocator(integer=True, nbins=6))
         ax.set_ylabel(label)
+        ax.grid(axis="y", color="#CBD5E1", alpha=0.45, linewidth=0.6)
+        if key == "acc":
+            ax.yaxis.set_major_formatter(PercentFormatter(1.0))
         ax.legend(frameon=False)
     a1.set_title(f"{run['name']}: best epoch {h['best_epoch']} (dotted)", loc="left")
+    fig.tight_layout()
     fig.savefig(FIG_DIR / fname)
     plt.close(fig)
 
@@ -97,19 +107,27 @@ def training_curves(run, fname):
 def confusion(run, classes, fname):
     cm = np.array(run["test"]["confusion_matrix"])
     norm = cm / cm.sum(axis=1, keepdims=True)
-    fig, ax = plt.subplots(figsize=(6, 5.2))
+    fig, ax = plt.subplots(figsize=(6.5, 5.8))
     im = ax.imshow(norm, cmap=HEATMAP, vmin=0, vmax=1)
     for i in range(len(classes)):
         for j in range(len(classes)):
             if cm[i, j]:
                 ax.text(j, i, cm[i, j], ha="center", va="center",
-                        color="black", fontsize=8)
+                        color="white" if norm[i, j] > 0.55 else "black", fontsize=9)
     ax.set_xticks(range(len(classes)), classes, rotation=45, ha="right")
     ax.set_yticks(range(len(classes)), classes)
     ax.set_xlabel("Predicted")
     ax.set_ylabel("True")
-    ax.set_title(f"Test confusion matrix: {run['name']} (counts; colour = row share)")
-    fig.colorbar(im, ax=ax, fraction=0.046)
+    ax.set_title(f"Test confusion matrix: {run['name']}\nCounts shown; shading = fraction of true class",
+                 fontsize=10)
+    ax.set_xticks(np.arange(len(classes) + 1) - 0.5, minor=True)
+    ax.set_yticks(np.arange(len(classes) + 1) - 0.5, minor=True)
+    ax.grid(which="minor", color="white", linewidth=0.7)
+    ax.tick_params(which="minor", bottom=False, left=False)
+    colorbar = fig.colorbar(im, ax=ax, fraction=0.046, pad=0.04)
+    colorbar.set_label("Fraction of true class")
+    colorbar.ax.yaxis.set_major_formatter(PercentFormatter(1.0))
+    fig.tight_layout()
     fig.savefig(FIG_DIR / fname)
     plt.close(fig)
 
@@ -121,31 +139,38 @@ def experiment_comparison(summary):
     test = [r["test_acc"] for r in rows][::-1]
     y = np.arange(len(names))
     fig, ax = plt.subplots(figsize=(8, 0.42 * len(names) + 1))
-    ax.barh(y + 0.2, val, 0.4, color=ACCENT, label="validation")
-    ax.barh(y - 0.2, test, 0.4, color=GREY, label="test")
-    for yi, v in zip(y, val):
-        ax.text(v + 0.003, yi + 0.2, f"{v:.3f}", va="center", fontsize=8)
+    ax.barh(y + 0.2, val, 0.4, color=ORANGE, label="Validation")
+    ax.barh(y - 0.2, test, 0.4, color=TEAL, label="Test")
+    for offset, values in ((0.2, val), (-0.2, test)):
+        for yi, value in zip(y, values):
+            ax.text(value + 0.003, yi + offset, f"{value:.1%}", va="center", fontsize=8)
     ax.set_yticks(y, names)
     ax.set_xlim(min(test + val) - 0.05, 1.0)
     ax.set_xlabel("Accuracy")
+    ax.xaxis.set_major_formatter(PercentFormatter(1.0))
     ax.set_title("All runs, ranked by validation macro-F1 (selection metric)")
     ax.legend(frameon=False, loc="lower right")
+    fig.tight_layout()
     fig.savefig(FIG_DIR / "experiment_comparison.png")
     plt.close(fig)
 
 
 def architecture_curves(runs):
     fig, ax = plt.subplots(figsize=(8, 3.6))
-    styles = {"pixel_lstm": (GREY, ":"), "cnn_only": (GREY, "--"), "cnn_lstm": (GREY, "-"),
-              "cnn_bilstm": (ACCENT, "-.")}
+    styles = {"pixel_lstm": (PURPLE, ":"), "cnn_only": (TEAL, "--"), "cnn_lstm": (ORANGE, "-"),
+              "cnn_bilstm": (BLUE, "-.")}
     for name, (color, ls) in styles.items():
         if name in runs:
             v = runs[name]["history"]["val_acc"]
-            ax.plot(range(1, len(v) + 1), v, color=color, ls=ls, label=name)
+            ax.plot(range(1, len(v) + 1), v, color=color, ls=ls, lw=2, label=name)
     ax.set_xlabel("Epoch")
+    ax.xaxis.set_major_locator(MaxNLocator(integer=True, nbins=6))
     ax.set_ylabel("Validation accuracy")
+    ax.yaxis.set_major_formatter(PercentFormatter(1.0))
+    ax.grid(axis="y", color="#CBD5E1", alpha=0.45, linewidth=0.6)
     ax.set_title("Architecture comparison: validation accuracy per epoch")
     ax.legend(frameon=False)
+    fig.tight_layout()
     fig.savefig(FIG_DIR / "architecture_curves.png")
     plt.close(fig)
 
@@ -194,11 +219,13 @@ def architecture_diagram():
     w, h, gap = 2.2, 1.1, 0.5
     xs = [i * (w + gap) for i in range(4)]
     pos = [(x, 2.0) for x in xs] + [(x, 0.0) for x in reversed(xs)]
+    fills = ["#EAF5FB", "#D9EEF9", "#D9EEF9", "#D9EEF9", "#FFF0DB", "#F4E5F0", "#DFF3EB", "#DFF3EB"]
+    edges = [BLUE, BLUE, BLUE, BLUE, ORANGE, PURPLE, TEAL, TEAL]
     fig, ax = plt.subplots(figsize=(11, 3.6))
     for i, ((name, l1, l2), (x, y)) in enumerate(zip(boxes, pos)):
         lstm = i == 5
         ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0.02,rounding_size=0.12",
-                                    fc="#eeeeee" if lstm else "white", ec=ACCENT if lstm else GREY,
+                                    fc=fills[i], ec=edges[i],
                                     lw=2 if lstm else 1.2))
         ax.text(x + w / 2, y + h * 0.72, name, ha="center", va="center", fontsize=10, weight="bold")
         ax.text(x + w / 2, y + h * 0.42, l1, ha="center", va="center", fontsize=8.5, color="black")
@@ -214,6 +241,7 @@ def architecture_diagram():
     ax.axis("off")
     ax.set_title("CNN-BiLSTM: convolutional features followed by recurrence over feature-map rows",
                  loc="left", fontsize=11)
+    fig.tight_layout()
     fig.savefig(FIG_DIR / "architecture_diagram.png")
     plt.close(fig)
 

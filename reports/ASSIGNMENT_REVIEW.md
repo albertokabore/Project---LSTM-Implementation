@@ -23,7 +23,7 @@ The notebook and report cover the supplied assignment instructions. The abstract
 - All 6,899 primary-copy source images decode; both archive copies match; every cached resize matches a fresh conversion.
 - All ten findings sections contain **100 words** each. Final insights/recommendations contain **300 words** in both the notebook and the report conclusion, excluding headings and bullet markers.
 - Wilson intervals match SciPy and macro F1 matches scikit-learn, including an absent-class case.
-- Notebook schema, report sections, figures and document watermark objects were checked. Report text and figure annotations use black; chart shading is grayscale. The report PDF and its export workflow have been removed.
+- Notebook schema, report sections, figures and document watermark objects were checked. Report body text uses black; the current notebook and report figures use a consistent color palette with contrasting confusion-matrix count labels. The report PDF and its export workflow have been removed.
 
 ## Watermarks
 

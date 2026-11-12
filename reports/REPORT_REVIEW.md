@@ -1,6 +1,10 @@
 # Report-only review - November 11, 2026
 
-The report was checked against all eight reporting requirements supplied by the student. Revisions are confined to the Word report, its generation and reference sources, and report-review records. The notebook was neither executed nor modified. Existing figures, model code, saved predictions, experiment metrics and checkpoints are unchanged.
+The report was checked against all eight reporting requirements supplied by the student. The initial content review preserved the existing figures, model code, saved predictions, experiment metrics and checkpoints. During that initial review, the notebook was neither executed nor modified.
+
+The current submission is [LSTM_Project_Report_Color.docx](LSTM_Project_Report_Color.docx). A subsequent visual revision added color to seven charts, including the confusion matrix, learning curves, class distribution, experiment comparison and architecture diagram. Training uses blue, validation uses orange and test results use green. The two photographic illustrations, report body, quantitative tables and recorded results are preserved. The report ends with References. Color and data checks are recorded in `audit_evidence/color_revision_validation.json`.
+
+At the student's subsequent request, the notebook's plotting sources and six embedded figures were also updated to match the report palette. All numerical outputs, written analysis, non-plot code and photographic examples are preserved. No training or full notebook execution was performed. Rebuilding the notebook now retains the color settings. The focused refresh command is `python reports/refresh_notebook_colors.py`; preservation checks are recorded in `audit_evidence/notebook_color_validation.json`.
 
 | Required section | Coverage in the revised report |
 | --- | --- |
@@ -29,6 +33,6 @@ The document contains all eight required sections, nine numbered tables and nine
 
 Every reference is cited in the report. Citation matching, reference order, hanging indents, italics, double spacing, image identity, table and image dimensions, black document text and absence of watermark objects were checked. The existing architecture and selected-run training-curve images were visually inspected. Pagination was not rendered in Word during this review.
 
-SHA-256 comparisons confirm that the notebook, its HTML export, model code, saved analysis, figures, experiment evidence and checkpoints remain unchanged. Of 55 snapshotted files, only the intentionally revised report reference source changed; the other 54 are identical. Detailed checks and the final report hash are recorded in `audit_evidence/report_review_validation.json`, with the initial snapshot in `audit_evidence/report_review_before.json`.
+During the initial content review, SHA-256 comparisons confirmed that the notebook, its then-existing HTML export, model code, saved analysis, figures, experiment evidence and checkpoints were unchanged. Of 55 snapshotted files, only the intentionally revised report reference source changed; the other 54 were identical. Those historical checks and that report version's hash are recorded in `audit_evidence/report_review_validation.json`, with the initial snapshot in `audit_evidence/report_review_before.json`. The later color revision separately confirms that all 28 protected notebook, result, prediction, checkpoint and report-content files remain unchanged.
 
 The report retains the study's material limits: one seed, unequal capacity and tuning coverage, possible related-image overlap, test metrics recorded during the search, and incomplete historical environment information. No new training runs or performance claims were introduced. The supplied reporting requirements are covered; a separate grading rubric was not supplied.

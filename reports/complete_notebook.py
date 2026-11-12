@@ -20,30 +20,92 @@ EXTRA_IDS = {"project-abstract", "model-diagram", "evaluation-method", "evaluati
              "project-references", "project-conclusion"}
 
 
-def black_figure_text(notebook) -> None:
-    """Use black annotations and distinguish chart series by line style."""
-    for cell in notebook.cells:
-        if cell.cell_type != "code":
-            continue
-        source = cell.source
-        if "RUN_TRAINING = False" in source and "REPORT_HEATMAP =" not in source:
-            source = source.replace("from PIL import Image", "from PIL import Image\n"
-                "from matplotlib.colors import LinearSegmentedColormap\n"
-                'REPORT_HEATMAP = LinearSegmentedColormap.from_list("report_gray", ["white", "#c4c4c4"])')
-            source += ('\nplt.rcParams.update({"text.color": "black", "axes.labelcolor": "black", '
-                       '"axes.titlecolor": "black", "xtick.color": "black", "ytick.color": "black"})')
-        source = source.replace('color="grey", label="train"', 'color="black", ls="--", label="train"')
-        source = source.replace('color="tab:blue"', 'color="black"')
-        source = source.replace('color="firebrick"', 'color="black"')
-        source = source.replace('cmap="Blues"', 'cmap=REPORT_HEATMAP')
-        source = re.sub(r'color="white" if share\[i, j\] > 0\.5 else "black"', 'color="black"', source)
-        if 'for name in ("pixel_lstm"' in source:
-            if "line_styles =" not in source:
-                source = source.replace('for name in ("pixel_lstm"',
-                    'line_styles = {"pixel_lstm": ":", "cnn_only": "--", "cnn_lstm": "-.", "cnn_bilstm": "-"}\n'
-                    'for name in ("pixel_lstm"')
-            source = source.replace('v, label=name, lw=', 'v, label=name, color="black", ls=line_styles[name], lw=')
-        cell.source = source
+def color_figure_style(notebook) -> None:
+    """Match the report palette while preserving analysis and training cells."""
+    cells = {cell.id: cell for cell in notebook.cells}
+    setup = cells["2727d6cb"].source
+    if "from matplotlib.colors import LinearSegmentedColormap" not in setup:
+        setup = setup.replace("from PIL import Image", "from PIL import Image\n"
+                              "from matplotlib.colors import LinearSegmentedColormap")
+    if "from matplotlib.ticker import MaxNLocator, PercentFormatter" not in setup:
+        setup = setup.replace("from matplotlib.colors import LinearSegmentedColormap",
+                              "from matplotlib.colors import LinearSegmentedColormap\n"
+                              "from matplotlib.ticker import MaxNLocator, PercentFormatter")
+    palette = '''TRAIN_COLOR = "#0072B2"
+VALIDATION_COLOR = "#D55E00"
+TEST_COLOR = "#009E73"
+ARCHITECTURE_COLORS = {"pixel_lstm": "#CC79A7", "cnn_only": TEST_COLOR,
+                       "cnn_lstm": VALIDATION_COLOR, "cnn_bilstm": TRAIN_COLOR}
+REPORT_HEATMAP = LinearSegmentedColormap.from_list("report_blue", ["#F1F7FD", "#6BAED6", "#08519C"])'''
+    if "TRAIN_COLOR =" not in setup:
+        if "REPORT_HEATMAP =" in setup:
+            setup = re.sub(r"(?m)^REPORT_HEATMAP =[^\n]*", lambda _: palette, setup)
+        else:
+            setup = setup.replace("from matplotlib.ticker import MaxNLocator, PercentFormatter",
+                                  "from matplotlib.ticker import MaxNLocator, PercentFormatter\n" + palette)
+    cells["2727d6cb"].source = setup
+    cells["ee650eab"].source = '''fig, ax = plt.subplots(figsize=(8, 3.2))
+eda["images"].sort_values().plot.barh(ax=ax, color=TRAIN_COLOR)
+ax.set_xlabel("images")
+ax.set_title("Images per class")
+plt.tight_layout()'''
+    cells["21e32130"].source = '''def plot_history(run, ax_loss, ax_acc):
+    hh = run["history"]
+    ep = range(1, len(hh["train_loss"]) + 1)
+    for ax, key in ((ax_loss, "loss"), (ax_acc, "acc")):
+        ax.plot(ep, hh[f"train_{key}"], color=TRAIN_COLOR, ls="--", lw=2, label="Training")
+        ax.plot(ep, hh[f"val_{key}"], color=VALIDATION_COLOR, lw=2, label="Validation")
+        ax.axvline(hh["best_epoch"], color="#6B7280", ls=":", lw=1.2)
+        ax.set_xlabel("epoch")
+        ax.xaxis.set_major_locator(MaxNLocator(integer=True, nbins=6))
+        ax.set_ylabel("Cross-entropy loss" if key == "loss" else "Accuracy")
+        ax.grid(axis="y", color="#CBD5E1", alpha=0.45, linewidth=0.6)
+        if key == "acc":
+            ax.yaxis.set_major_formatter(PercentFormatter(1.0))
+        ax.legend(frameon=False)
+    ax_loss.set_title(f"{run['name']} (dotted line = best epoch {hh['best_epoch']})", loc="left")
+
+fig, axes = plt.subplots(1, 2, figsize=(11, 3.6))
+plot_history(best, *axes)
+plt.tight_layout()'''
+    cells["e12d967b"].source = '''cm = np.array(m["confusion_matrix"])
+share = cm / cm.sum(1, keepdims=True)
+fig, ax = plt.subplots(figsize=(6.5, 5.8))
+image = ax.imshow(share, cmap=REPORT_HEATMAP, vmin=0, vmax=1)
+for i in range(len(cm)):
+    for j in range(len(cm)):
+        if cm[i, j]:
+            ax.text(j, i, cm[i, j], ha="center", va="center", fontsize=9,
+                    color="white" if share[i, j] > 0.55 else "black")
+ax.set_xticks(range(len(cm)), info["classes"], rotation=45, ha="right")
+ax.set_yticks(range(len(cm)), info["classes"])
+ax.set_xlabel("predicted")
+ax.set_ylabel("true")
+ax.set_title("Test confusion matrix (counts)")
+ax.set_xticks(np.arange(len(cm) + 1) - 0.5, minor=True)
+ax.set_yticks(np.arange(len(cm) + 1) - 0.5, minor=True)
+ax.grid(which="minor", color="white", linewidth=0.7)
+ax.tick_params(which="minor", bottom=False, left=False)
+colorbar = fig.colorbar(image, ax=ax, fraction=0.046, pad=0.04)
+colorbar.set_label("Fraction of true class")
+colorbar.ax.yaxis.set_major_formatter(PercentFormatter(1.0))
+plt.tight_layout()
+
+off = [(info["classes"][i], info["classes"][j], int(cm[i, j])) for i in range(len(cm)) for j in range(len(cm)) if i != j and cm[i, j]]
+pd.DataFrame(sorted(off, key=lambda t: -t[2])[:8], columns=["true", "predicted", "count"])'''
+    cells["dcd7e3fc"].source = '''fig, ax = plt.subplots(figsize=(9, 3.8))
+line_styles = {"pixel_lstm": ":", "cnn_only": "--", "cnn_lstm": "-", "cnn_bilstm": "-."}
+for name in ("pixel_lstm", "cnn_only", "cnn_lstm", "cnn_bilstm"):
+    v = runs[name]["history"]["val_acc"]
+    ax.plot(range(1, len(v) + 1), v, label=name, color=ARCHITECTURE_COLORS[name], ls=line_styles[name], lw=2.2 if name == "cnn_bilstm" else 1.5)
+ax.set_xlabel("epoch")
+ax.xaxis.set_major_locator(MaxNLocator(integer=True, nbins=6))
+ax.set_ylabel("validation accuracy")
+ax.yaxis.set_major_formatter(PercentFormatter(1.0))
+ax.grid(axis="y", color="#CBD5E1", alpha=0.45, linewidth=0.6)
+ax.set_title("Architecture comparison")
+ax.legend(frameon=False)
+plt.tight_layout()'''
 
 
 def write_notebook_text(notebook, text) -> None:
@@ -201,7 +263,7 @@ print(additional["scope"])''', id="evaluation-uncertainty")
             notebook.cells.extend([method, uncertainty])
     write_notebook_text(notebook, text)
     concise_notebook_output(notebook)
-    black_figure_text(notebook)
+    color_figure_style(notebook)
     for cell in notebook.cells:
         if cell.cell_type == "code" and "RUN_TRAINING =" in cell.source:
             assert cell.source.startswith("RUN_TRAINING = False")

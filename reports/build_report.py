@@ -383,7 +383,8 @@ def build(output: Path = OUT) -> Path:
     r.table(["Class", "Training", "Validation", "Test", "Total"], rows,
             [3.4, 3.1, 3.1, 3.1, 3.7],
             "Class counts after exact-duplicate indexing; stratified 70/15/15 allocation with seed 42.", bold_last=True)
-    r.figure(FIGS / "class_distribution.png", "Class counts within the fixed split.", 15)
+    r.figure(FIGS / "class_distribution.png",
+             "Class counts within the fixed split: training in blue, validation in orange and test in green.", 15)
     r.h("2.2 Image quality and cleaning", 2)
     r.bullets(text["cleaning_findings"])
     r.p("In the original dataset, fruit has 1,000 images and dog has 702, a class-count ratio of 1.42. "
@@ -530,9 +531,10 @@ def build(output: Path = OUT) -> Path:
         for c in sorted(classes, key=lambda c: pc[c]["f1"])
     ], [3.6, 3.2, 3.2, 3.2, 3.2], "Test metrics by class, ordered by F1.")
     r.figure(FIGS / "training_curves_selected.png",
-             "Selected-run histories. Training metrics are recorded during optimization; validation uses evaluation mode.", 16)
+             "Selected-run histories: training in blue dashed lines and validation in orange solid lines. "
+             "Training metrics are recorded during optimization; validation uses evaluation mode.", 16)
     r.figure(FIGS / "confusion_matrix_selected.png",
-             "Test confusion matrix. Labels show counts and colour represents the fraction of each true class.", 13)
+             "Test confusion matrix. Labels show counts; darker blue indicates a larger fraction of each true class.", 13)
     r.figure(FIGS / "sample_predictions.png",
              "Examples of correct predictions and errors. Displayed softmax values have not been calibrated.", 16)
     r.h("4.1 Observations", 2)
@@ -600,9 +602,12 @@ def build(output: Path = OUT) -> Path:
          pct(row["test_acc"], 2), f"{row['test_macro_f1']:.4f}"] for row in summary["runs"]
     ], [4.0, 2.7, 1.4, 2.4, 3.0, 2.9],
         "All ten runs ranked by validation macro F1. F1 values are fractions; accuracy is a percentage.")
-    r.figure(FIGS / "experiment_comparison.png", "Validation and test accuracy; ordering uses validation macro F1.", 15)
+    r.figure(FIGS / "experiment_comparison.png",
+             "Validation accuracy in orange and test accuracy in green; ordering uses validation macro F1.", 15)
     r.figure(FIGS / "architecture_curves.png", "Validation histories of the four architecture configurations.", 15)
-    r.figure(FIGS / "training_curves_baseline.png", "Bidirectional baseline histories for comparison with the selected run.", 16)
+    r.figure(FIGS / "training_curves_baseline.png",
+             "Bidirectional baseline histories for comparison with the selected run: training in blue dashed "
+             "lines and validation in orange solid lines.", 16)
     gain = analysis["selected_minus_baseline_accuracy"]
     lo, hi = analysis["paired_accuracy_improvement_bootstrap_95"]
     r.p(f"The selected configuration improves test accuracy by {gain * 100:.2f} percentage points over the "

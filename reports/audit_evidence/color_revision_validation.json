@@ -1,0 +1,86 @@
+{
+  "scope": "Add color to report charts without changing the notebook, numerical results, report body or tables.",
+  "report_path": "reports/LSTM_Project_Report_Color.docx",
+  "report_sha256": "d9001196603a5fb34ba33eecabfe284ea24031b3ad56f6dcf088509136d19be3",
+  "chart_data_matches_saved_results": [
+    "class_distribution.png",
+    "training_curves_selected.png",
+    "training_curves_baseline.png",
+    "confusion_matrix_selected.png",
+    "experiment_comparison.png",
+    "architecture_curves.png",
+    "architecture_diagram.png"
+  ],
+  "changed_figures": [
+    "architecture_curves.png",
+    "architecture_diagram.png",
+    "class_distribution.png",
+    "confusion_matrix_selected.png",
+    "experiment_comparison.png",
+    "training_curves_baseline.png",
+    "training_curves_selected.png"
+  ],
+  "figure_colors": {
+    "architecture_curves.png": {
+      "chromatic_pixel_fraction": 0.0234,
+      "sha256": "5dbe2e6f0fa74fd9aa7b2645f7bb81f6d77506009d31f6792cd18bd8ba2d7769",
+      "changed": true
+    },
+    "architecture_diagram.png": {
+      "chromatic_pixel_fraction": 0.2667,
+      "sha256": "02f0f1cc72406187d7ba5d873043512d23f1788539cb9ff2f51a27f6e2221f4d",
+      "changed": true
+    },
+    "augmentation_examples.png": {
+      "chromatic_pixel_fraction": 0.2815,
+      "sha256": "d7796d65e49bba241c11b7732edc72a7278e2087dc05a8dd7efcb7c588cd5487",
+      "changed": false
+    },
+    "class_distribution.png": {
+      "chromatic_pixel_fraction": 0.3928,
+      "sha256": "29907cbbb6012ef3a5e2188b0722b5f019c1c7c73afb785e299ab84ecbaca000",
+      "changed": true
+    },
+    "confusion_matrix_selected.png": {
+      "chromatic_pixel_fraction": 0.0925,
+      "sha256": "4605a79fad81ef9423dfb89671f5549ebd6bf9012af32fd5056db8ee6f574b90",
+      "changed": true
+    },
+    "experiment_comparison.png": {
+      "chromatic_pixel_fraction": 0.297,
+      "sha256": "f0929034d7229e46f23afa7b291721b94d8f0409579ecdd1a530eb09034e434a",
+      "changed": true
+    },
+    "sample_predictions.png": {
+      "chromatic_pixel_fraction": 0.244,
+      "sha256": "f16aeec3c1e15468d99f66cde20687ab76a0a0b553e47f5ccc89da1ba430b131",
+      "changed": false
+    },
+    "training_curves_baseline.png": {
+      "chromatic_pixel_fraction": 0.0158,
+      "sha256": "8d9c2f5120c83a2f0b020c6343c832c444e429b5bd1b44fe7b341b2cb32fa43a",
+      "changed": true
+    },
+    "training_curves_selected.png": {
+      "chromatic_pixel_fraction": 0.0151,
+      "sha256": "97b7e4ceca2aade2fd09516ca2cc219ee469fd490e71d42e3143eb3cb96eca56",
+      "changed": true
+    }
+  },
+  "series_colors": {
+    "training": "#0072B2",
+    "validation": "#D55E00",
+    "test": "#009E73"
+  },
+  "confusion_matrix": "Sequential blue shading with light count labels on dark cells and black labels on light cells.",
+  "all_figures_visually_inspected": true,
+  "report_tables": 9,
+  "report_figures": 9,
+  "report_body_and_tables_preserved": true,
+  "appendix_present": false,
+  "all_report_images_match_latest_figure_files": true,
+  "protected_files_unchanged": 28,
+  "notebook_sha256_unchanged": "ac23d04d530c321fb222092d1241138e26c04d398e1eeaef33de4e7a3cab069b",
+  "notebook_executed": false,
+  "training_run": false
+}

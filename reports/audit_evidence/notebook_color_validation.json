@@ -1,0 +1,41 @@
+{
+  "scope": "Update notebook plotting styles and six embedded figures to match the color report.",
+  "notebook_sha256_before": "ac23d04d530c321fb222092d1241138e26c04d398e1eeaef33de4e7a3cab069b",
+  "notebook_sha256_after": "3462a5238960922fce474f6b01c54f8635a793586370f4022682723b3ff004ee",
+  "plot_source_cells": [
+    "21e32130",
+    "2727d6cb",
+    "dcd7e3fc",
+    "e12d967b",
+    "ee650eab"
+  ],
+  "refreshed_figure_cells": [
+    "ee650eab",
+    "21e32130",
+    "e12d967b",
+    "dcd7e3fc",
+    "c0e8f60a",
+    "model-diagram"
+  ],
+  "plot_data_matches_saved_results": true,
+  "numerical_outputs_preserved": true,
+  "markdown_and_training_code_preserved": true,
+  "photographic_illustrations_preserved": true,
+  "style_application_idempotent": true,
+  "protected_files_unchanged": 42,
+  "report_path": "reports/LSTM_Project_Report_Color.docx",
+  "report_sha256": "d9001196603a5fb34ba33eecabfe284ea24031b3ad56f6dcf088509136d19be3",
+  "training_run": false,
+  "whole_notebook_rerun": false,
+  "notebook_schema_valid": true,
+  "all_code_cells_parse": true,
+  "refreshed_figures_have_color": {
+    "ee650eab": 0.2615,
+    "model-diagram": 0.2667,
+    "21e32130": 0.0148,
+    "e12d967b": 0.0961,
+    "dcd7e3fc": 0.0187,
+    "c0e8f60a": 0.016
+  },
+  "report_images_match_color_sources": true
+}
