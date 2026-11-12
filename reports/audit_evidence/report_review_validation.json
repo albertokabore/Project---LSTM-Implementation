@@ -1,0 +1,37 @@
+{
+  "review_date": "2026-11-11",
+  "scope": "Report content and report-generation sources only; no notebook execution or training.",
+  "requirements_verified": [
+    "Abstract",
+    "1. Introduction",
+    "2. Methodology",
+    "3. Model Implementation and Training",
+    "4. Results and Evaluation",
+    "5. Optimization and Insights",
+    "6. Conclusion",
+    "References"
+  ],
+  "report_tables": 9,
+  "report_figures": 9,
+  "apa_reference_entries": 18,
+  "every_reference_cited": true,
+  "references_alphabetical_with_hanging_indent_and_italics": true,
+  "reference_spacing": "Double-spaced",
+  "metric_validation": "All scalar test metrics, per-class metrics and confusion matrices for ten runs were recomputed from saved prediction files; maximum scalar difference was 0.0.",
+  "configuration_table_matches_all_saved_runs": true,
+  "result_table_matches_summary": true,
+  "embedded_figures_identical_to_existing_sources": true,
+  "figures_and_tables_within_page_bounds": true,
+  "layout_rounding_tolerance_points": 1,
+  "watermark_objects": 0,
+  "nonblack_text_colors": 0,
+  "notebook_sha256_before": "ac23d04d530c321fb222092d1241138e26c04d398e1eeaef33de4e7a3cab069b",
+  "notebook_sha256_after": "ac23d04d530c321fb222092d1241138e26c04d398e1eeaef33de4e7a3cab069b",
+  "notebook_and_export_unchanged": true,
+  "protected_files_unchanged": 54,
+  "intentional_report_source_changes_in_snapshot": [
+    "reports/references.json"
+  ],
+  "report_sha256": "f381c2cac461b037dbf1a015e0ce44e42bac8449c03d79736e35c9d968446851",
+  "limitations": "One seed, unequal capacity and tuning coverage, potential related-image overlap, per-run test exposure and incomplete historical environment information remain study limits. No new experiments are claimed. Pagination was not rendered in Word; document structure, image/table bounds and the existing architecture and selected training-curve images were checked."
+}

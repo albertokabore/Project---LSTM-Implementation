@@ -2,14 +2,16 @@
 
     python reports/build_report.py
 
-Measured results come from saved JSON and prediction arrays. Discussion is read
-from reports/report_text.json; references are shared with the notebook.
+Measured results come from saved JSON and prediction arrays. Discussion and
+references are read from report sources. Building this document does not execute
+or modify the notebook, regenerate figures, or overwrite analysis results.
 """
 
 from __future__ import annotations
 
 import json
 import argparse
+import hashlib
 import sys
 from io import BytesIO
 from pathlib import Path
@@ -298,10 +300,11 @@ def build(output: Path = OUT) -> Path:
     baseline = runs["cnn_bilstm"]
     classes = info["classes"]
     tm = best["test"]
-    sys.path.insert(0, str(ROOT))
-    from reports.analyse_results import analyse
-    analysis = analyse()
-    (ROOT / "reports/analysis_results.json").write_text(json.dumps(analysis, indent=2), encoding="utf-8")
+    analysis = json.loads((ROOT / "reports/analysis_results.json").read_text(encoding="utf-8"))
+    # The report consumes reviewed evidence; recalculation is a separate command.
+    for relative_path, expected in analysis["input_sha256"].items():
+        if hashlib.sha256((ROOT / relative_path).read_bytes()).hexdigest() != expected:
+            raise ValueError(f"Analysis evidence changed: {relative_path}; recompute analysis before building")
 
     r = Report()
     d = r.doc
@@ -335,6 +338,10 @@ def build(output: Path = OUT) -> Path:
         "updates and information flow; the adaptive forget gate was introduced by Gers et al. (2000). A "
         "bidirectional network reads the sequence in both directions and combines the states "
         "(Schuster & Paliwal, 1997).")
+    r.p("The input gate controls new content, the forget gate scales retained memory, and the output gate "
+        "controls the exposed hidden representation. The additive cell-state update provides a path for "
+        "information and gradients across sequence steps, helping an LSTM learn dependencies that a simple "
+        "recurrent network may struggle to retain (Hochreiter & Schmidhuber, 1997; Gers et al., 2000).")
     r.h("1.2 Spatial sequence hypothesis", 2)
     r.p("Here, each row of a CNN feature map becomes one sequence step. Row order may help represent layouts "
         "such as wheels below a vehicle body or a head above a torso. Global average pooling removes the final "
@@ -343,6 +350,10 @@ def build(output: Path = OUT) -> Path:
         "CNN and LSTM combinations also appear in scene text recognition (Shi et al., 2017) and video recognition "
         "(Donahue et al., 2015). These studies motivate the design; the present comparison evaluates its performance "
         "on Natural Images.")
+    r.p("This project classifies individual still images. Its sequence steps represent spatial rows within one "
+        "image; they do not represent video frames or separate photographs. The hypothesis is that gated "
+        "integration of ordered local features can help distinguish object layouts. The eight-step sequence "
+        "tests that spatial design without establishing an advantage on long temporal sequences.")
     r.h("1.3 Objectives and dataset choice", 2)
     r.bullets([
         "Inspect and preprocess labelled photographs using resizing, normalization and training augmentation.",
@@ -360,6 +371,10 @@ def build(output: Path = OUT) -> Path:
         "duplicate pairs once, leaving 6,897 images. A saved publisher-manifest "
         "comparison matches all 13,798 downloaded filenames and sizes, totalling 359,403,192 bytes. "
         "Publisher cryptographic hashes were unavailable.")
+    r.p("Folder names provide one label per image, encoded as integers 0 through 7 in alphabetical class order. "
+        "After exact-duplicate indexing, the split first reserves 15% for testing, then takes "
+        "15/85 of the remainder for validation. Both stratified operations use seed 42. This preserves "
+        "class representation while reserving separate data for fitting, configuration selection and reporting.")
     counts = info["class_counts"]
     rows = [[c] + [str(counts[s][i]) for s in ("train", "val", "test")]
             + [str(sum(counts[s][i] for s in ("train", "val", "test")))] for i, c in enumerate(classes)]
@@ -396,6 +411,17 @@ def build(output: Path = OUT) -> Path:
         "increases this to 41, comprising 38 fruit and three motorbike images. Visual inspection of candidate "
         "pairs identified closely related views and false positives. Hash matches therefore require visual "
         "confirmation. Potential related-image overlap limits inference about independent photographs.")
+    r.h("2.5 Study design and rationale", 2)
+    r.p("The experiment uses a compact CNN followed by an LSTM, trained end to end from random initialization. "
+        "No pretrained feature extractor or external training images are used. Three pooling stages balance "
+        "local feature extraction against the CPU budget, and a single recurrent layer with 128 units per "
+        "direction provides the reference hybrid configuration. Section 3 specifies its tensor dimensions "
+        "and the alternatives used to evaluate these choices.")
+    r.p("Stratification addresses representation in each split, while training-only normalization prevents "
+        "validation or test intensities from influencing preprocessing parameters. Unweighted cross-entropy "
+        "retains the observed training class frequencies; no oversampling or class weighting is used. "
+        "Validation macro F1 gives all eight classes equal influence in ranking, which is useful given "
+        "the unequal class counts. Accuracy and support-weighted F1 complement that view.")
 
     r.h("3. Model Implementation and Training")
     r.h("3.1 Architecture and design choices", 2)
@@ -404,16 +430,24 @@ def build(output: Path = OUT) -> Path:
         "values. A single bidirectional LSTM layer has 128 units per direction. Its final states form a 256-value "
         "vector, passed through a 128-unit classification head to eight logits. Softmax is applied for reporting "
         "probabilities; training uses cross-entropy on logits.")
+    r.p("Convolutions use stride 1 and padding 1, preserving resolution until each pooling operation. In "
+        "PyTorch's channel-first format, a batch follows [B, 3, 64, 64] to [B, 128, 8, 8], then "
+        "[B, 8, 1,024]. Concatenating the final forward and backward hidden states yields [B, 256]. "
+        "The head applies a bias-free linear layer, batch normalization, ReLU and a final linear layer "
+        "with eight outputs. B denotes batch size; every prediction concerns one image.")
     r.figure(FIGS / "architecture_diagram.png",
              "CNN with bidirectional LSTM; dropout differs between the baseline and selected configurations.", 16.4)
     r.table(["Stage", "Output per image", "Parameters"], [
-        ["Convolutional backbone", "128 x 8 x 8", "287,456"],
+        ["CNN block 1: 3 to 32 channels", "32 x 32 x 32", "10,208"],
+        ["CNN block 2: 32 to 64 channels", "64 x 16 x 16", "55,552"],
+        ["CNN block 3: 64 to 128 channels", "128 x 8 x 8", "221,696"],
         ["Rows to sequence", "8 x 1,024", "0"],
         ["Bidirectional LSTM", "256 final-state values", "1,181,696"],
         ["Classification head", "8 logits", "34,056"],
         ["Total", "", f"{best['params']:,}"],
     ], [6.2, 6.0, 4.2],
-        "Selected model summary. Dropout has no trainable parameters, so its removal preserves the parameter count.",
+        "Selected model summary; feature-map dimensions are channels x height x width. "
+        "The CNN blocks total 287,456 parameters. Dropout has no trainable parameters.",
         bold_last=True, align_right_from=2)
     r.bullets([
         "Convolutions provide local feature extraction before recurrence; eight sequence steps reduce the recurrent "
@@ -422,6 +456,12 @@ def build(output: Path = OUT) -> Path:
         "The pixel LSTM has 315,016 parameters and the CNN control has 305,128, compared with 1,503,208 in the "
         "bidirectional hybrid. Unequal capacity prevents attributing performance differences solely to recurrence.",
     ])
+    r.p("The pixel LSTM control reads 64 rows of 192 RGB values, applies layer normalization, and uses two "
+        "unidirectional recurrent layers with 128 hidden units. The CNN control uses the same convolutional "
+        "backbone followed by global average pooling and a classification head. The unidirectional hybrid "
+        "reads the same eight feature-map rows as the bidirectional model but supplies a 128-value final "
+        "state to the head. These controls compare raw-pixel recurrence, convolutional features and spatial "
+        "recurrence under the recorded training budget.")
     r.h("3.2 Training and model selection", 2)
     cfg = best["train"]
     r.p("Implementation uses PyTorch (Paszke et al., 2019), with scikit-learn metrics (Pedregosa et al., 2011). "
@@ -435,6 +475,8 @@ def build(output: Path = OUT) -> Path:
         ["Sequence/head dropout", str(baseline["model"]["dropout"]), str(best["model"]["dropout"])],
         ["Spatial dropout", "0.1", "0.0"],
         ["Batch size / epoch limit", "64 / 20", f"{cfg['batch_size']} / {cfg['epochs']}"],
+        ["Loss / label smoothing", "Cross-entropy / 0", "Cross-entropy / 0"],
+        ["Split / training seed", "42 / 42", "42 / 42"],
         ["Retained epoch", str(baseline["history"]["best_epoch"]), str(best["history"]["best_epoch"])],
     ], [5.4, 5.5, 5.5], "Training settings read from the saved configurations, with architecture-derived spatial dropout.")
     r.p("Batch normalization follows each convolution and the first head linear layer (Ioffe & Szegedy, 2015). "
@@ -444,8 +486,25 @@ def build(output: Path = OUT) -> Path:
         "The loop clips gradient norm at 1.0. Validation loss must decrease by more than 1e-4 to reset the six-epoch "
         "patience counter and retain new weights. Runs are ranked by validation macro F1 after their checkpoints "
         "are restored. Test predictions were recorded after each experiment, before the full search concluded.")
+    r.p("Each epoch shuffles the training indices using the seeded generator and performs 76 mini-batch "
+        "updates, including the final 27 images. A batch passes through augmentation when enabled, "
+        "normalization, the model and mean cross-entropy loss. Backpropagation updates the CNN, LSTM "
+        "and head jointly; clipping precedes the optimizer step, and the learning-rate scheduler advances "
+        "once per update. Validation runs with gradients disabled and batch normalization in evaluation mode.")
+    r.p("Dropout placement is explicit: baseline spatial dropout removes feature channels after pooling "
+        "with probability 0.1, and probability 0.5 is used on the row sequence and twice in the classifier "
+        "head. A one-layer LSTM has no internal inter-layer dropout; the two-layer variant also applies "
+        "dropout between its recurrent layers. All dropout probabilities are zero in the selected model. "
+        "The name tune_no_reg refers to removal of augmentation, dropout and weight decay; batch "
+        "normalization and other training controls remain active.")
     r.h("3.3 Training observations", 2)
     r.bullets(text["observations"]["training"])
+    r.p("All ten runs reached the 20-epoch limit; the six-epoch early-stopping threshold was never reached. "
+        "The selected weights were restored from epoch 17, rather than taken from epoch 20. Figure 4 shows "
+        "training loss continuing toward zero while validation loss levels off around 0.16, with a "
+        "4.83-percentage-point training-to-validation accuracy gap at the retained epoch. This pattern "
+        "shows a generalization gap and supports checkpoint restoration; it does not demonstrate that "
+        "additional training or removing regularization would improve independent-image performance.")
     r.h("3.4 Computational constraints", 2)
     r.bullets(text["challenges"])
 
@@ -454,6 +513,9 @@ def build(output: Path = OUT) -> Path:
         "test probabilities exactly in the local audit. Metrics use the highest-probability class. For each class, "
         "precision is TP/(TP+FP), recall is TP/(TP+FN), and F1 is their harmonic mean. Macro F1 averages class F1 "
         "without weighting; weighted F1 weights by class support.")
+    r.p("Accuracy is the fraction of correctly classified images. Top-2 accuracy checks whether the true "
+        "class appears among the two highest-scoring classes and is reported only as a supplementary "
+        "measure. The main decision still uses one class per image, with no threshold tuning or test-time augmentation.")
     r.table(["Metric", "Validation", "Test"], [
         ["Accuracy", pct(best["val"]["accuracy"], 2), pct(tm["accuracy"], 2)],
         ["Macro precision", pct(best["val"]["macro_precision"], 2), pct(tm["macro_precision"], 2)],
@@ -475,6 +537,17 @@ def build(output: Path = OUT) -> Path:
              "Examples of correct predictions and errors. Displayed softmax values have not been calibrated.", 16)
     r.h("4.1 Observations", 2)
     r.bullets(text["results_discussion"])
+    cm = tm["confusion_matrix"]
+    cat, dog = classes.index("cat"), classes.index("dog")
+    r.p(f"The confusion matrix identifies {cm[cat][dog]} cats predicted as dogs and "
+        f"{cm[dog][cat]} dogs predicted as cats: {100 * (cm[cat][dog] + cm[dog][cat]) / (analysis['test_images'] - analysis['correct']):.1f}% "
+        "of all test errors. Shared appearance or difficult backgrounds are plausible explanations to "
+        "investigate; the confusion matrix alone cannot identify their cause. Prediction examples illustrate "
+        "individual outcomes, while the complete per-class table supports the aggregate conclusions.")
+    r.p("Test accuracy exceeds validation accuracy by 1.16 percentage points. These are different image "
+        "samples, so the difference does not establish improved generalization. High softmax confidence "
+        "also does not establish calibration. The perfect motorbike recall concerns 118 images on this "
+        "split, with potential related-image overlap considered in the sensitivity analysis.")
     r.h("4.2 Uncertainty and descriptive sensitivity", 2)
     acc_lo, acc_hi = analysis["accuracy_wilson_95"]
     f1_lo, f1_hi = analysis["macro_f1_bootstrap_95"]
@@ -503,6 +576,25 @@ def build(output: Path = OUT) -> Path:
     r.h("5.1 Architecture and tuning experiments", 2)
     for para in text["optimisation_experiments"]:
         r.p(para)
+    configuration_rows = []
+    for name in ("pixel_lstm", "cnn_only", "cnn_lstm", "cnn_bilstm", "tune_hidden256",
+                 "tune_layers2", "tune_dropout03", "tune_lr3e4", "tune_no_aug", "tune_no_reg"):
+        run = runs[name]
+        model_cfg, train_cfg = run["model"], run["train"]
+        recurrent = run["arch"] != "cnn"
+        configuration_rows.append([
+            name, model_cfg.get("hidden", "N/A"), model_cfg.get("layers", "N/A"),
+            ("Bi" if model_cfg.get("bidirectional", False) else "Uni") if recurrent else "N/A",
+            f"{model_cfg['dropout']:g}", "Yes" if train_cfg["augment"] else "No",
+            f"{train_cfg['lr']:g}", f"{train_cfg['weight_decay']:g}",
+        ])
+    r.table(["Run", "Hidden", "Layers", "Dir.", "Dropout", "Aug.", "Peak LR", "Decay"],
+            configuration_rows, [3.8, 1.6, 1.4, 1.3, 1.9, 1.5, 2.5, 2.4],
+            "Complete experiment settings from saved configurations. Hidden units are per direction; "
+            "dropout denotes sequence/head probability (head only for the CNN). Aug. means training "
+            "augmentation; Bi/Uni mean bidirectional/unidirectional, and decay means AdamW weight decay. "
+            "All runs use seed 42, batch size 64 and a "
+            "20-epoch limit. N/A means not applicable.", align_right_from=1)
     r.table(["Run", "Parameters", "Epoch", "Val F1", "Test accuracy", "Test F1"], [
         [row["name"], f"{row['params']:,}", row["best_epoch"], f"{row['val_macro_f1']:.4f}",
          pct(row["test_acc"], 2), f"{row['test_macro_f1']:.4f}"] for row in summary["runs"]
@@ -521,6 +613,18 @@ def build(output: Path = OUT) -> Path:
         "and does not isolate a causal effect of any single setting.")
     r.h("5.2 Observations", 2)
     r.bullets(text["optimisation_insights"])
+    r.p("The search was a manually specified set of ten runs, rather than a grid search or a repeated-seed "
+        "optimization. Increasing hidden size or depth tests extra recurrent capacity; reducing dropout "
+        "tests a weaker masking setting; the lower learning rate tests slower updates within the same epoch "
+        "budget. Disabling augmentation tests whether those transformations help on this split. The combined "
+        "run tests a joint change and cannot identify the separate contribution of dropout or weight decay. "
+        "The tied dropout parameter also changes multiple masking locations together.")
+    r.p("The configuration without augmentation achieved validation macro F1 of 0.9342 versus 0.9040 for "
+        "the bidirectional baseline; the combined run reached 0.9471. These observations suggest that the "
+        "original regularization and augmentation settings may be too strong for this training budget, "
+        "but they do not establish a general benefit from removing regularization. A follow-up factorial "
+        "comparison should vary augmentation, dropout and weight decay independently, use comparable "
+        "search budgets for each architecture, and select models before evaluating a new holdout.")
 
     r.h("6. Conclusion")
     r.h("6.1 Final insights", 2)
@@ -534,23 +638,33 @@ def build(output: Path = OUT) -> Path:
         para = d.add_paragraph()
         para.paragraph_format.left_indent = Cm(1.27)
         para.paragraph_format.first_line_indent = Cm(-1.27)
+        para.paragraph_format.line_spacing = 2.0
+        para.paragraph_format.keep_together = True
         for chunk, italic in ref:
             para.add_run(chunk).italic = italic
 
     r.h("Appendix A. Reproduction and evidence")
+    r.p("Use Python 3.11 from the repository root and install the reviewed dependencies with "
+        "python -m pip install -r requirements.txt. Read the primary image directory at "
+        "data/natural-images/natural_images; resized arrays are cached at artifacts/cache/images_64px.npz. "
+        "results/data_info.json records class order, normalization statistics and test paths. The deterministic "
+        "indexing and seed-42 split reproduce the remaining split assignments. The historical dependency "
+        "inventory is incomplete, so the reviewed package set is not a guarantee of identical retraining.")
     r.p("The notebook reruns preparation and checkpoint evaluation with RUN_TRAINING=False. Saved experiment "
         "results, predictions and weights are preserved. The current package inventory is recorded separately "
         "from historical run metadata.")
     r.p("Illustration-only exclusions are recorded in reports/display_exclusions.json. "
         "These exclusions do not alter split membership or reported metrics.")
     r.bullets([
-        "python -m pytest -q",
-        "python reports/audit_assignment.py",
-        "python reports/analyse_results.py",
-        "python -m cnn_lstm.plots",
-        "python reports/complete_notebook.py",
-        "python reports/build_report.py",
+        "Check implementation behavior: python -m pytest -q",
+        "Recompute supplementary statistics from saved predictions: python reports/analyse_results.py",
+        "Rebuild only this report from existing evidence: python reports/build_report.py",
     ])
+    r.p("No training or notebook execution is needed to rebuild the report. To conduct new experiments, "
+        "use separate output locations and preserve the current evidence; the canonical experiment runner "
+        "caches runs by name and its --rerun option overwrites saved results. Only the selected model's "
+        "checkpoint is retained. Other runs can be checked against saved predictions and histories, "
+        "but their fitted weights cannot be re-evaluated without retraining.")
     r.p("Evidence: results/summary.json; results/runs/*/result.json and test_probs.npy; "
         "artifacts/checkpoints/best_model.pt; reports/audit_evidence/local_audit.json; "
         "reports/audit_evidence/publisher_verification.json; reports/analysis_results.json.")
