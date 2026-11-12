@@ -1,0 +1,28 @@
+{
+  "scope": "Remove the reproduction and internal-verification appendix in response to student feedback.",
+  "report_path": "reports/LSTM_Project_Report_Revised.docx",
+  "status": "The original report is open in Word; the corrected report is saved as a separate revised copy.",
+  "required_sections": [
+    "Abstract",
+    "1. Introduction",
+    "2. Methodology",
+    "3. Model Implementation and Training",
+    "4. Results and Evaluation",
+    "5. Optimization and Insights",
+    "6. Conclusion",
+    "References"
+  ],
+  "appendix_present": false,
+  "report_ends_with_references": true,
+  "all_other_report_paragraphs_preserved": true,
+  "all_tables_preserved": true,
+  "all_embedded_figures_preserved": true,
+  "tables": 9,
+  "figures": 9,
+  "references": 18,
+  "previous_report_sha256": "f381c2cac461b037dbf1a015e0ce44e42bac8449c03d79736e35c9d968446851",
+  "corrected_report_sha256": "6d2ef0abf5eaa6aa3c98c6df7a63fabb1bb91b601819ebaab3766afd2d70111e",
+  "notebook_sha256_unchanged": "ac23d04d530c321fb222092d1241138e26c04d398e1eeaef33de4e7a3cab069b",
+  "notebook_executed": false,
+  "experiments_rerun": false
+}

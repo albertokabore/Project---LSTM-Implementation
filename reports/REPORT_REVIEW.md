@@ -21,7 +21,7 @@ The report was checked against all eight reporting requirements supplied by the 
 - Added the complete experiment configuration table so run names can be interpreted without opening the notebook or code.
 - Interpreted the validation-loss plateau, training-to-validation gap, directional cat/dog errors, and the difference between validation and test accuracy.
 - Distinguished observations from explanations that still require controlled experiments.
-- Made the reproduction appendix self-contained and made report generation consume existing analysis without overwriting it or executing the notebook.
+- Removed the reproduction and internal-verification appendix following the student's feedback. The academic report ends with References and retains the eight required reporting sections. Report generation consumes existing analysis without overwriting it or executing the notebook.
 
 ## Verification
 

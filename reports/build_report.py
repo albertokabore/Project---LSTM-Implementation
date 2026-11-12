@@ -643,31 +643,6 @@ def build(output: Path = OUT) -> Path:
         for chunk, italic in ref:
             para.add_run(chunk).italic = italic
 
-    r.h("Appendix A. Reproduction and evidence")
-    r.p("Use Python 3.11 from the repository root and install the reviewed dependencies with "
-        "python -m pip install -r requirements.txt. Read the primary image directory at "
-        "data/natural-images/natural_images; resized arrays are cached at artifacts/cache/images_64px.npz. "
-        "results/data_info.json records class order, normalization statistics and test paths. The deterministic "
-        "indexing and seed-42 split reproduce the remaining split assignments. The historical dependency "
-        "inventory is incomplete, so the reviewed package set is not a guarantee of identical retraining.")
-    r.p("The notebook reruns preparation and checkpoint evaluation with RUN_TRAINING=False. Saved experiment "
-        "results, predictions and weights are preserved. The current package inventory is recorded separately "
-        "from historical run metadata.")
-    r.p("Illustration-only exclusions are recorded in reports/display_exclusions.json. "
-        "These exclusions do not alter split membership or reported metrics.")
-    r.bullets([
-        "Check implementation behavior: python -m pytest -q",
-        "Recompute supplementary statistics from saved predictions: python reports/analyse_results.py",
-        "Rebuild only this report from existing evidence: python reports/build_report.py",
-    ])
-    r.p("No training or notebook execution is needed to rebuild the report. To conduct new experiments, "
-        "use separate output locations and preserve the current evidence; the canonical experiment runner "
-        "caches runs by name and its --rerun option overwrites saved results. Only the selected model's "
-        "checkpoint is retained. Other runs can be checked against saved predictions and histories, "
-        "but their fitted weights cannot be re-evaluated without retraining.")
-    r.p("Evidence: results/summary.json; results/runs/*/result.json and test_probs.npy; "
-        "artifacts/checkpoints/best_model.pt; reports/audit_evidence/local_audit.json; "
-        "reports/audit_evidence/publisher_verification.json; reports/analysis_results.json.")
     for section in d.sections:
         footer = section.footer.paragraphs[0]
         footer.alignment = WD_ALIGN_PARAGRAPH.CENTER
