@@ -1,0 +1,23 @@
+{
+  "scope": "Separate report Final Insights, Recommendations and Conclusion, with a distinct final narrative conclusion.",
+  "report_path": "reports/LSTM_Project_Report_Final.docx",
+  "report_sha256": "bf93d3afe447a1d5e6864d64d0f3d66db0f3edcc4cee4b050c7aa51ec56e377d",
+  "closing_section_order": [
+    "6. Final Insights",
+    "7. Recommendations",
+    "8. Conclusion",
+    "References"
+  ],
+  "three_standalone_closing_sections": true,
+  "conclusion_is_last_narrative_section": true,
+  "distinct_conclusion_paragraphs": 2,
+  "final_insights_and_recommendations_words": 300,
+  "conclusion_words": 126,
+  "earlier_report_body_preserved": true,
+  "all_nine_tables_preserved": true,
+  "all_nine_color_figures_preserved": true,
+  "apa_references_preserved": true,
+  "appendix_present": false,
+  "notebook_sha256_unchanged": "3462a5238960922fce474f6b01c54f8635a793586370f4022682723b3ff004ee",
+  "protected_result_and_shared_narrative_files_unchanged": 27
+}

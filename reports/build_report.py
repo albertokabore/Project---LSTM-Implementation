@@ -33,12 +33,13 @@ from docx.shared import Cm, Pt, RGBColor  # noqa: E402
 ROOT = Path(__file__).resolve().parent.parent
 RESULTS = ROOT / "results"
 FIGS = RESULTS / "figures"
-OUT = ROOT / "reports" / "LSTM_Project_Report.docx"
+OUT = ROOT / "reports" / "LSTM_Project_Report_Final.docx"
 TEXT_FILE = ROOT / "reports" / "report_text.json"
+CLOSING_FILE = ROOT / "reports" / "report_closing.json"
 
 REQUIRED_TEXT = [
     "abstract", "results_discussion", "results_improve", "optimisation_experiments",
-    "optimisation_insights", "conclusion_findings", "conclusion_future",
+    "optimisation_insights",
 ]
 
 FONT = "Calibri"
@@ -292,6 +293,13 @@ def build(output: Path = OUT) -> Path:
             raise ValueError(f"{name}: observations must contain 100 words")
     if sum(len(item.split()) for item in text["final_insights"]) != 300:
         raise ValueError("Final insights and recommendations must contain 300 words")
+    closing = json.loads(CLOSING_FILE.read_text(encoding="utf-8"))
+    for key in ("final_insights", "recommendations", "conclusion"):
+        if not isinstance(closing.get(key), list) or not closing[key]:
+            raise ValueError(f"Missing report closing section: {key}")
+    if sum(len(item.split()) for key in ("final_insights", "recommendations")
+           for item in closing[key]) != 300:
+        raise ValueError("Report final insights and recommendations must contain 300 words")
 
     info = json.loads((RESULTS / "data_info.json").read_text())
     summary = json.loads((RESULTS / "summary.json").read_text())
@@ -631,11 +639,15 @@ def build(output: Path = OUT) -> Path:
         "comparison should vary augmentation, dropout and weight decay independently, use comparable "
         "search budgets for each architecture, and select models before evaluating a new holdout.")
 
-    r.h("6. Conclusion")
-    r.h("6.1 Final insights", 2)
-    r.bullets(text["conclusion_findings"])
-    r.h("6.2 Recommendations", 2)
-    r.bullets(text["conclusion_future"])
+    r.h("6. Final Insights")
+    r.bullets(closing["final_insights"])
+
+    r.h("7. Recommendations")
+    r.bullets(closing["recommendations"])
+
+    r.h("8. Conclusion")
+    for paragraph in closing["conclusion"]:
+        r.p(paragraph)
 
     r.h("References")
     references = json.loads((ROOT / "reports/references.json").read_text(encoding="utf-8"))

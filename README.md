@@ -16,7 +16,7 @@ feature map row by row. Built with PyTorch and trained on a CPU.
 | `cnn_lstm/plots.py` | Report figures |
 | `notebooks/LSTM_Image_Classification.ipynb` | End-to-end walkthrough with outputs |
 | `notebooks/LSTM_Image_Classification.html` | Executed notebook for browser viewing |
-| `reports/LSTM_Project_Report_Color.docx` | Current Word report with color figures, tables and APA references |
+| `reports/LSTM_Project_Report_Final.docx` | Current Word report with color figures, separate final insights, recommendations and conclusion, and APA references |
 | `reports/ASSIGNMENT_REVIEW.md` | Assignment coverage, checks and remaining study limitations |
 | `tests/` | Unit tests (pytest) |
 | `results/` | Per-run histories and metrics, `summary.json`, `figures/`, training log |
@@ -45,7 +45,7 @@ python -m pytest
 python reports/refresh_notebook_colors.py
 
 # 6. Build the Word report
-python reports/build_report.py --output reports/LSTM_Project_Report_Color.docx
+python reports/build_report.py
 ```
 
 Use `python -m pytest -q` for a quick implementation check. Avoid using `--rerun` with an epoch override on
